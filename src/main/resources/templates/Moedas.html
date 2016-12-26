@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultaq.net/nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+<head>
+<title>Financeiro - Moedas</title>
+</head>
+<section layout:fragment="conteudo">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center col-md-2">Data Deposito</th>
+						<th class="text-center col-md-2">R$ 1,00</th>
+						<th class="text-center col-md-2">R$ 0,50</th>
+						<th class="text-center col-md-2">R$ 0,25</th>
+						<th class="text-center col-md-2">R$ 0,10</th>
+						<th class="text-center col-md-2">R$ 0,05</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each=" moeda : ${moedas}">
+						<td class="text-center" th:text="${{moeda.dataDeposito}}"></td>
+						<td class="text-right" th:text="${moeda.umReal}"></td>
+						<td class="text-right" th:text="${moeda.cinquentaCentavos}"></td>
+						<td class="text-right" th:text="${moeda.vinteCincoCentavos}"></td>
+						<td class="text-right" th:text="${moeda.dezCentavos}"></td>
+						<td class="text-right" th:text="${moeda.cincoCentavos}"></td>
+					</tr>
+					<tr>
+						<td class="text-center" colspan="6" th:if="${#lists.isEmpty(moedas)}">Nenhum Deposito foi encontrado</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div class="panel">
+		<div class="panel-heading">
+			<form class="form-horizontal form-cadastro" method="POST" th:action="@{/financeiro}" th:object="${moeda}">
+				<div class="panel panel-default">
+
+				<div class="panel-body">
+			
+					<div class="form-group">
+						<input type="hidden" th:field="*{codigo}" />
+						<div class="col-sm-2">
+							<input type="text" class="form-control text-center" id="dataDeposito" placeholder="Data do Depósito" th:field="*{dataDeposito}"
+							data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" data-date-autoclose="true" data-date-today-highlight="true"/>
+						</div>
+						<div class="col-sm-2">
+							<input type="number" class="form-control text-center" id="umReal" placeholder="Quantidade de Moedas de R$ 1,00" th:field="*{umReal}"/>
+						</div>
+						<div class="col-sm-2">
+							<input type="number" class="form-control text-center" id="cinquentaCentavos" placeholder="Quantidade de Moedas de R$ 0,50" th:field="*{cinquentaCentavos}"/>
+						</div>
+						<div class="col-sm-2">
+							<input type="number" class="form-control text-center" id="vinteCincoCentavos" placeholder="Quantidade de Moedas de R$ 0,25" th:field="*{vinteCincoCentavos}"/>
+						</div>
+						<div class="col-sm-2">
+							<input type="number" class="form-control text-center" id="dezCentavos" placeholder="Quantidade de Moedas de R$ 0,10" th:field="*{dezCentavos}"/>
+						</div>
+						<div class="col-sm-2">
+							<input type="number" class="form-control text-center" id="cincoCentavos" placeholder="Quantidade de Moedas de R$ 0,05" th:field="*{cincoCentavos}"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" align="right">
+				<div class="botao">
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+	
+	
+</section>
+</html>

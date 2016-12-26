@@ -1,0 +1,43 @@
+body{
+	padding-top: 60px;	
+}
+
+.navbar-brand {
+	padding-top: 0px; 
+}
+
+.panel-default {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.botao {
+	margin-left: 25px;
+	margin-right: 25px;
+}
+
+.alert {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.aw-link-panel {
+	float: right;
+	padding: 0px;
+} 
+
+.aw-titulo-panel {
+	float: left;
+	padding-top: 2px;
+}
+
+.aw-titulo-navbar {
+	font-size: 25px;
+	color: #F0F8FF;
+	display:inline;	
+}
+
+.div-titulo {
+	padding-top: 10px;
+	width: 350px;
+}
