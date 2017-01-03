@@ -17,10 +17,10 @@
 			</div>
 		</div>
 		<div class="panel-body" style="height: 40%">
-			<table class="table table-bordered table-striped">
+			<table class="table table-bordered table-striped table-condensed">
 				<thead>
 					<tr>
-						<th class="text-center col-md-2">Data Deposito</th>
+						<th class="text-center ">Data Deposito</th>
 						<th class="text-center col-md-2">R$ 1,00</th>
 						<th class="text-center col-md-2">R$ 0,50</th>
 						<th class="text-center col-md-2">R$ 0,25</th>
@@ -31,22 +31,27 @@
 				<tbody>
 					<tr th:each=" moeda : ${moedas}">
 						<td class="text-center" th:text="${{moeda.dataDeposito}}"></td>
-						<td class="text-right" th:text="${moeda.umReal}"></td>
-						<td class="text-right" th:text="${moeda.cinquentaCentavos}"></td>
-						<td class="text-right" th:text="${moeda.vinteCincoCentavos}"></td>
-						<td class="text-right" th:text="${moeda.dezCentavos}"></td>
-						<td class="text-right" th:text="${moeda.cincoCentavos}"></td>
+						<td class="text-center" th:text="${moeda.umReal}"></td>
+						<td class="text-center" th:text="${moeda.cinquentaCentavos}"></td>
+						<td class="text-center" th:text="${moeda.vinteCincoCentavos}"></td>
+						<td class="text-center" th:text="${moeda.dezCentavos}"></td>
+						<td class="text-center" th:text="${moeda.cincoCentavos}"></td>
+						<td class="text-center">
+							<a class="btn btn-link btn-xs" th:href="@{/financeiro/{codigo}(codigo=${moeda.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a> 
+							<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal" th:attr="data-codigo=${moeda.codigo}, data-datadeposito=${moeda.dataDeposito}" title="Excluir" rel="tooltip" data-placement="top">
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td class="text-center"></td>
-						<td class="text-right" th:text="|R$ ${somaUm}|"></td>
-						<td class="text-right" th:text="|R$ ${somaCinquenta}|"></td>
-						<td class="text-right" th:text="|R$ ${somaVinteCinco}|"></td>
-						<td class="text-right" th:text="|R$ ${somaDez}|"></td>
-						<td class="text-right" th:text="|R$ ${somaCinco}|"></td>
-					</tr>
-					<tr>
-						<td class="text-center" colspan="6" th:if="${#lists.isEmpty(moedas)}">Nenhum Deposito foi encontrado</td>
+						<td class="text-center" th:text="|R$ ${somaUm}|"></td>
+						<td class="text-center" th:text="|R$ ${somaCinquenta}|"></td>
+						<td class="text-center" th:text="|R$ ${somaVinteCinco}|"></td>
+						<td class="text-center" th:text="|R$ ${somaDez}|"></td>
+						<td class="text-center" th:text="|R$ ${somaCinco}|"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -55,7 +60,7 @@
 	
 	<div class="panel panel-pagination">
 		<div class="panel-heading">
-			<div class="row">
+			<div th:if="${moedas.getTotalPages() > 0}" class="row">
 				<div th:if="${moedas.getTotalPages() != 1}" class="form-group col-md-12 pagination-centered">
 					<ul class="pagination">
 						<li th:class="${moedas.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/teste/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
@@ -68,6 +73,7 @@
 				</div>
 			</div>
 		</div> 
+		<div layout:include="DialogoConfirmacaoExclusao"></div>
 	</div>	
 </section>
 </html>

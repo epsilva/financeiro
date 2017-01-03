@@ -23,5 +23,12 @@ public interface MoedasService {
 	 * @return collection of moedas
 	 */
 	Iterable<Moeda> save(Iterable<Moeda> persons);
+	
+	
+	/**
+	 *Método para remover um deposito
+	 * @param Long codigo
+	 */
+	void delete(Long codigo);
 
 }

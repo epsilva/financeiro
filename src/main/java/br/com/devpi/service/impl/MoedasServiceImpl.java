@@ -32,4 +32,10 @@ public class MoedasServiceImpl implements MoedasService  {
 		return moedaRepository.save(moeda);
 	}
 
+	@Override
+	public void delete(Long codigo) {
+		moedaRepository.delete(codigo);
+		
+	}
+
 }

@@ -7,6 +7,91 @@
 <title>Financeiro Desafio 52 Semanas</title>
 </head>
 <section layout:fragment="conteudo">
-	
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="clearfix">
+			<h1 class="panel-title aw-titulo-panel ">Desafio das 52 Semanas</h1>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="panel-body">
+				<div class="col-md-6">
+					<form class="form-horizontal" method="POST"	th:action="@{/financeiro/desafio/novo}"	th:object="${desafioSemana}">
+						<div class="panel-body">
+							<input type="hidden" th:field="*{codigo}" />
+							<div class="form-group">
+								<div>
+									<input type="text" class="form-control text-center"	id="dataDeposito" placeholder="Data do Deposito" th:field="*{dataDeposito}" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+										data-date-autoclose="true" data-date-today-highlight="true" />
+								</div>
+							</div>
+							<p></p>
+							<div class="form-group">
+								<div>
+									<input type="text" class="form-control js-currency text-center" id="valorDepositado" placeholder="Valor depositado" th:field="*{{valorDepositado}}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div>
+									<button type="submit" class="btn btn-primary">Salvar</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-6" style="padding-top:1%">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th class="text-center">Data Deposito</th>
+								<th class="text-center">Valor Depositado</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=" deposito : ${desafiosSemana}">
+								<td class="text-center" th:text="${{deposito.dataDeposito}}"></td>
+								<td class="text-center" th:text="${deposito.valorDepositado}"></td>
+								<td class="text-center">
+									<a class="btn btn-link btn-xs" th:href="@{/financeiro/desafio/novo/{codigo}(codigo=${deposito.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</a> 
+									<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalDesafioSemana" th:attr="data-codigo=${deposito.codigo}, data-datadeposito=${deposito.dataDeposito}" title="Excluir" rel="tooltip" data-placement="top">
+										<span class="glyphicon glyphicon-remove"></span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-center" colspan="6" th:if="${desafiosSemana.getTotalPages() == 0}">Nenhum Depósito foi encontrado</td>
+							</tr>
+							<tr th:if="${desafiosSemana.getTotalPages() > 0}">
+								<td class="text-center" >Total</td>
+								<td class="text-center" th:text="|R$ ${somaValores}|"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="panel panel-pagination">
+						<div class="panel-heading col-md-12">
+							<div th:if="${desafiosSemana.getTotalPages() > 0}" class="row">
+								<div th:if="${desafiosSemana.getTotalPages() != 1}" class="form-group col-md-12 pagination-centered">
+									<ul class="pagination">
+										<li th:class="${desafiosSemana.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
+										<li th:class="${desafiosSemana.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=${desafiosSemana.getNumber()})}">&larr;</a></li>
+										<li th:class="${desafiosSemana.getNumber() == (page - 1)} ? 'active pointer-disabled'"
+											th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></li>
+										<li th:class="${desafiosSemana.getNumber() + 1 == desafiosSemana.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=${desafiosSemana.getNumber() + 2})}">&rarr;</a></li>
+										<li th:class="${desafiosSemana.getNumber() + 1 == desafiosSemana.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize},page=${desafiosSemana.getTotalPages()})}">&raquo;</a></li>
+									</ul>
+								</div>
+							</div>
+						</div> 
+					</div>
+					<div layout:include="DialogoConfirmacaoExlcusaoDesafioSemana"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 </section>
 </html>
