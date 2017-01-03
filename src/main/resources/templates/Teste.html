@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultaq.net/nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+<head>
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<title>Financeiro - Moedas</title>
+</head>
+<section layout:fragment="conteudo" >
+	<div class="panel panel-default">
+	<div class="panel-heading">
+			<div class="clearfix">
+				<h1 class="panel-title aw-titulo-panel ">Pesquisa Moedas</h1>
+				<a class="btn btn-link aw-link-panel" th:href="@{/financeiro/novo}">Cadastro Moedas</a>
+			</div>
+		</div>
+		<div class="panel-body" style="height: 40%">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center col-md-2">Data Deposito</th>
+						<th class="text-center col-md-2">R$ 1,00</th>
+						<th class="text-center col-md-2">R$ 0,50</th>
+						<th class="text-center col-md-2">R$ 0,25</th>
+						<th class="text-center col-md-2">R$ 0,10</th>
+						<th class="text-center col-md-2">R$ 0,05</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each=" moeda : ${moedas}">
+						<td class="text-center" th:text="${{moeda.dataDeposito}}"></td>
+						<td class="text-right" th:text="${moeda.umReal}"></td>
+						<td class="text-right" th:text="${moeda.cinquentaCentavos}"></td>
+						<td class="text-right" th:text="${moeda.vinteCincoCentavos}"></td>
+						<td class="text-right" th:text="${moeda.dezCentavos}"></td>
+						<td class="text-right" th:text="${moeda.cincoCentavos}"></td>
+					</tr>
+					<tr>
+						<td class="text-center"></td>
+						<td class="text-right" th:text="|R$ ${somaUm}|"></td>
+						<td class="text-right" th:text="|R$ ${somaCinquenta}|"></td>
+						<td class="text-right" th:text="|R$ ${somaVinteCinco}|"></td>
+						<td class="text-right" th:text="|R$ ${somaDez}|"></td>
+						<td class="text-right" th:text="|R$ ${somaCinco}|"></td>
+					</tr>
+					<tr>
+						<td class="text-center" colspan="6" th:if="${#lists.isEmpty(moedas)}">Nenhum Deposito foi encontrado</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div class="panel panel-pagination">
+		<div class="panel-heading">
+			<div class="row">
+				<div th:if="${moedas.getTotalPages() != 1}" class="form-group col-md-12 pagination-centered">
+					<ul class="pagination">
+						<li th:class="${moedas.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/teste/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
+						<li th:class="${moedas.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/teste/(pageSize=${selectedPageSize}, page=${moedas.getNumber()})}">&larr;</a></li>
+						<li th:class="${moedas.getNumber() == (page - 1)} ? 'active pointer-disabled'"
+							th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/financeiro/teste/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></li>
+						<li th:class="${moedas.getNumber() + 1 == moedas.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/teste/(pageSize=${selectedPageSize}, page=${moedas.getNumber() + 2})}">&rarr;</a></li>
+						<li th:class="${moedas.getNumber() + 1 == moedas.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/teste/(pageSize=${selectedPageSize},page=${moedas.getTotalPages()})}">&raquo;</a></li>
+					</ul>
+				</div>
+			</div>
+		</div> 
+	</div>	
+</section>
+</html>

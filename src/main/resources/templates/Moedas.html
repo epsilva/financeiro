@@ -4,11 +4,13 @@
 	xmlns:layout="http://www.ultaq.net/nz/thymeleaf/layout"
 	layout:decorator="LayoutPadrao">
 <head>
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
 <title>Financeiro - Moedas</title>
 </head>
-<section layout:fragment="conteudo">
+<section layout:fragment="conteudo" >
 	<div class="panel panel-default">
-		<div class="panel-body">
+		<div class="panel-body" style="height: 40%">
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
@@ -37,12 +39,29 @@
 		</div>
 	</div>
 	
-	<div class="panel">
+	<div class="panel panel-pagination">
+		<div class="panel-heading">
+			<div class="row">
+				<div th:if="${moedas.getTotalPages() != 1}" class="form-group col-md-12 pagination-centered">
+					<ul class="pagination">
+						<li th:class="${moedas.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/moedas/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
+						<li th:class="${moedas.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/moedas/(pageSize=${selectedPageSize}, page=${moedas.getNumber()})}">&larr;</a></li>
+						<li th:class="${moedas.getNumber() == (page - 1)} ? 'active pointer-disabled'"
+							th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/financeiro/moedas/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></li>
+						<li th:class="${moedas.getNumber() + 1 == moedas.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/moedas/(pageSize=${selectedPageSize}, page=${moedas.getNumber() + 2})}">&rarr;</a></li>
+						<li th:class="${moedas.getNumber() + 1 == moedas.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/moedas/(pageSize=${selectedPageSize},page=${moedas.getTotalPages()})}">&raquo;</a></li>
+					</ul>
+				</div>
+			</div>
+		</div> 
+	</div>
+	
+	<div class="panel panel-form">
 		<div class="panel-heading">
 			<form class="form-horizontal form-cadastro" method="POST" th:action="@{/financeiro}" th:object="${moeda}">
 				<div class="panel panel-default">
 
-				<div class="panel-body">
+				<div class="panel-body panel-body-form">
 			
 					<div class="form-group">
 						<input type="hidden" th:field="*{codigo}" />
@@ -66,13 +85,14 @@
 							<input type="number" class="form-control text-center" id="cincoCentavos" placeholder="Quantidade de Moedas de R$ 0,05" th:field="*{cincoCentavos}"/>
 						</div>
 					</div>
+					<div class="form-group" align="right">
+						<div class="botao">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="form-group" align="right">
-				<div class="botao">
-					<button type="submit" class="btn btn-primary">Salvar</button>
-				</div>
-			</div>
+			
 			</form>
 		</div>
 	</div>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultaq.net/nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+<head>
+<title>Cadastro de título</title>
+</head>
+<section layout:fragment="conteudo">
+<form class="form-horizontal" method="POST" th:action="@{/financeiro}" th:object="${moedas}">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title aw-titulo-panel ">Pesquisa Moedas</h1>
+					<a class="btn btn-link aw-link-panel" th:href="@{/financeiro/teste}">Pesquisa Moedas</a>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				<input type="hidden" th:field="*{codigo}" />
+				<div class="form-group">
+					<div class="col-sm-3">
+						<input type="text" class="form-control text-center" id="dataDeposito" placeholder="Data do Depósito" th:field="*{dataDeposito}"
+						data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" data-date-autoclose="true" data-date-today-highlight="true"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-3">
+						<input type="number" class="form-control text-center" id="umReal" placeholder="Quantidade de Moedas de R$ 1,00" th:field="*{umReal}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-3">
+						<input type="number" class="form-control text-center" id="cinquentaCentavos" placeholder="Quantidade de Moedas de R$ 0,50" th:field="*{cinquentaCentavos}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-3">
+						<input type="number" class="form-control text-center" id="vinteCincoCentavos" placeholder="Quantidade de Moedas de R$ 0,25" th:field="*{vinteCincoCentavos}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-3">
+						<input type="number" class="form-control text-center" id="dezCentavos" placeholder="Quantidade de Moedas de R$ 0,10" th:field="*{dezCentavos}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-3">
+						<input type="number" class="form-control text-center" id="cincoCentavos" placeholder="Quantidade de Moedas de R$ 0,05" th:field="*{cincoCentavos}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-6">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</section>
+</html>

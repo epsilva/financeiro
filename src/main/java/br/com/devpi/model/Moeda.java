@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -43,6 +44,21 @@ public class Moeda {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataDeposito;
+	
+	@Transient
+	private Double valorMoedasUmReal;
+	
+	@Transient
+	private Double valorMoedasCinquentaCentavos;
+	
+	@Transient
+	private Double valorMoedasVinteCincoCentavos;
+	
+	@Transient
+	private Double valorMoedasDezCentavos;
+	
+	@Transient
+	private Double valorMoedasCincoCentavos;
 
 	/**
 	 * Retorna o codigo do deposito
@@ -155,6 +171,49 @@ public class Moeda {
 	public void setDataDeposito(Date dataDeposito) {
 		this.dataDeposito = dataDeposito;
 	}
+	
+	/**
+	 * Retorna soma dos valores das moedas de um real
+	 * @return
+	 */
+	public Double getValorMoedasUmReal() {
+		valorMoedasUmReal += getUmReal();
+		return valorMoedasUmReal;
+	}
+
+
+	public Double getValorMoedasCinquentaCentavos() {
+		return valorMoedasCinquentaCentavos;
+	}
+
+	public void setValorMoedasCinquentaCentavos(Double valorMoedasCinquentaCentavos) {
+		this.valorMoedasCinquentaCentavos = valorMoedasCinquentaCentavos;
+	}
+
+	public Double getValorMoedasVinteCincoCentavos() {
+		return valorMoedasVinteCincoCentavos;
+	}
+
+	public void setValorMoedasVinteCincoCentavos(Double valorMoedasVinteCincoCentavos) {
+		this.valorMoedasVinteCincoCentavos = valorMoedasVinteCincoCentavos;
+	}
+
+	public Double getValorMoedasDezCentavos() {
+		return valorMoedasDezCentavos;
+	}
+
+	public void setValorMoedasDezCentavos(Double valorMoedasDezCentavos) {
+		this.valorMoedasDezCentavos = valorMoedasDezCentavos;
+	}
+
+	public Double getValorMoedasCincoCentavos() {
+		return valorMoedasCincoCentavos;
+	}
+
+	public void setValorMoedasCincoCentavos(Double valorMoedasCincoCentavos) {
+		this.valorMoedasCincoCentavos = valorMoedasCincoCentavos;
+	}
+	
 	
 	
 	

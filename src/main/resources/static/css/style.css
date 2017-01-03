@@ -7,13 +7,16 @@ body{
 }
 
 .panel-default {
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 1%;
+	margin-right: 1%;
+}
+
+.form-group {
+	margin-bottom: 1%;
 }
 
 .botao {
-	margin-left: 25px;
-	margin-right: 25px;
+	margin-right: 2%;
 }
 
 .alert {
@@ -40,4 +43,39 @@ body{
 .div-titulo {
 	padding-top: 10px;
 	width: 350px;
+}
+
+.pagination-centered {
+	text-align: center;
+	padding-top: 0px;
+}
+
+.pagination {
+	padding-top: 8%;
+	margin-top: -10%;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.pointer-disabled {
+	pointer-events: none;
+}
+
+.panel-form {
+	padding-bottom:0%;
+	padding-top: -20%;
+}
+
+.panel-pagination {
+	padding-top: 1%;
+	margin-bottom: -3%;
+}
+
+.panel-body-form {
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-bottom: -1.5%;
 }
