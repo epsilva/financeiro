@@ -66,8 +66,8 @@
 			<div th:if="${moedas.getTotalPages() > 0}" class="row">
 				<div th:if="${moedas.getTotalPages() != 1}" class="form-group col-md-12 pagination-centered">
 					<ul class="pagination">
-						<li th:class="${moedas.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
-						<li th:class="${moedas.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=${moedas.getNumber()})}">&larr;</a></li>
+						<li th:class="${moedas.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/moedas/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
+						<li th:class="${moedas.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/moedas/(pageSize=${selectedPageSize}, page=${moedas.getNumber()})}">&larr;</a></li>
 						<li th:class="${moedas.getNumber() == (page - 1)} ? 'active pointer-disabled'"
 							th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/financeiro/moedas/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></li>
 						<li th:class="${moedas.getNumber() + 1 == moedas.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/moedas/(pageSize=${selectedPageSize}, page=${moedas.getNumber() + 2})}">&rarr;</a></li>

@@ -13,10 +13,17 @@ public class Pager {
 	private int startPage;
 
 	private int endPage;
+	
+	private int totalPages;
+	
+	private int number;
 
 	public Pager(int totalPages, int currentPage, int buttonsToShow) {
 
 		setButtonsToShow(buttonsToShow);
+		
+		setTotalPages(totalPages);
+		setNumber(currentPage);
 
 		int halfPagesToShow = getButtonsToShow() / 2;
 
@@ -69,6 +76,23 @@ public class Pager {
 
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
+	}
+	
+
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 	@Override

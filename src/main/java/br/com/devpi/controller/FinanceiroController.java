@@ -1,11 +1,16 @@
 package br.com.devpi.controller;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -143,16 +148,16 @@ public class FinanceiroController {
 	}
 	
 	
-	/**
-	 * Chama a tela de cadastro de Moeda
-	 * @return
-	 */
-	@RequestMapping("/novo")
-	public ModelAndView novo(){
-		ModelAndView mv = new ModelAndView("CadastroMoedas");
-		mv.addObject(new Moeda());
-		return mv;
-	}
+//	/**
+//	 * Chama a tela de cadastro de Moeda
+//	 * @return
+//	 */
+//	@RequestMapping("/novo")
+//	public ModelAndView novo(){
+//		ModelAndView mv = new ModelAndView("CadastroMoedas");
+//		mv.addObject(new Moeda());
+//		return mv;
+//	}
 	
 	/**
 	 * Método para salvar objeto Moeda
@@ -187,6 +192,71 @@ public class FinanceiroController {
 	public String excluir(@PathVariable Long codigo){
 		moedasService.delete(codigo);
 		return "redirect:/financeiro/moedas";
+	}
+	
+	/**
+	 * Pesquisa as moedas para apresentar na tela com paginacao
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value = "/novo", method = RequestMethod.GET)
+	public ModelAndView pesquisarMoedasMesAno(@RequestParam(value = "pageSize", required = false) Integer pageSize, @RequestParam(value = "page", required = false) Integer page){
+		ModelAndView modelAndView = new ModelAndView("CadastroMoedas");
+		modelAndView.addObject(new Moeda());
+
+		int evalPageSize = pageSize == null ? 13 : pageSize;
+		int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
+
+		Page<Moeda> moedas = moedasService.findAllPageable(new PageRequest(evalPage, evalPageSize));
+		somarValorePorMes(moedas, modelAndView);
+		Pager pager = new Pager(moedas.getTotalPages(), moedas.getNumber(), BUTTONS_TO_SHOW);
+		modelAndView.addObject("moedas", moedas);
+		modelAndView.addObject("selectedPageSize", evalPageSize);
+		modelAndView.addObject("pager", pager);
+		return modelAndView;
+	}
+	
+	private void somarValorePorMes(Page<Moeda> moedas, ModelAndView modelAndView){
+		Iterator<Moeda> it = moedas.iterator();
+		Format formatMesAno = new SimpleDateFormat("MM/YYYY");
+		Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
+		while(it.hasNext()){
+			BigDecimal somaUm = new BigDecimal(0);
+			BigDecimal somaCinquenta = new BigDecimal(0);
+			BigDecimal somaVinteCinco = new BigDecimal(0);
+			BigDecimal somaDez = new BigDecimal(0);
+			BigDecimal somaCinco = new BigDecimal(0);
+			
+			BigDecimal valor = new BigDecimal(0);
+			
+			Moeda moedaObject = (Moeda)it.next();
+			
+			somaUm = new BigDecimal(moedaObject.getUmReal());
+			somaCinquenta = new BigDecimal(moedaObject.getCinquentaCentavos()*0.5).setScale(2, RoundingMode.HALF_EVEN);
+			somaVinteCinco = new BigDecimal(moedaObject.getVinteCincoCentavos()*0.25).setScale(2, RoundingMode.HALF_EVEN);
+			somaDez = new BigDecimal(moedaObject.getDezCentavos()*0.10).setScale(2, RoundingMode.HALF_EVEN);
+			somaCinco = new BigDecimal(moedaObject.getCincoCentavos()*0.05).setScale(2, RoundingMode.HALF_EVEN);
+			
+			valor = somaUm.add(somaCinquenta).add(somaVinteCinco).add(somaDez).add(somaCinco).setScale(2, RoundingMode.HALF_EVEN);
+			
+			if(map.get(formatMesAno.format(moedaObject.getDataDeposito())) != null){
+				BigDecimal valorSoma = map.get(formatMesAno.format(moedaObject.getDataDeposito())).add(valor);
+				map.put(formatMesAno.format(moedaObject.getDataDeposito()), valorSoma);
+			}else{
+				map.put(formatMesAno.format(moedaObject.getDataDeposito()), valor);
+			}
+		}
+		
+		List<Moeda> listaValorMoedasMesAno = new ArrayList<Moeda>();
+		for(Map.Entry<String, BigDecimal> entry : map.entrySet()){
+			Moeda moedaMesAno = new Moeda();
+			moedaMesAno.setDataDepositoMesAno(entry.getKey());
+			moedaMesAno.setValorDepositado(entry.getValue().setScale(2, RoundingMode.HALF_EVEN));
+			listaValorMoedasMesAno.add(moedaMesAno);
+		}
+		
+		modelAndView.addObject("listaValorMesAno", listaValorMoedasMesAno);
 	}
 	
 	private void somarValoresMoedas(Page<Moeda> moedas, ModelAndView modelAndView){

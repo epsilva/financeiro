@@ -1,5 +1,6 @@
 package br.com.devpi.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -59,6 +60,12 @@ public class Moeda {
 	
 	@Transient
 	private Double valorMoedasCincoCentavos;
+	
+	@Transient
+	private BigDecimal valorDepositado;
+	
+	@Transient
+	private String dataDepositoMesAno;
 
 	/**
 	 * Retorna o codigo do deposito
@@ -213,6 +220,26 @@ public class Moeda {
 	public void setValorMoedasCincoCentavos(Double valorMoedasCincoCentavos) {
 		this.valorMoedasCincoCentavos = valorMoedasCincoCentavos;
 	}
+
+	public BigDecimal getValorDepositado() {
+		return valorDepositado;
+	}
+
+	public void setValorDepositado(BigDecimal valorDepositado) {
+		this.valorDepositado = valorDepositado;
+	}
+
+	public String getDataDepositoMesAno() {
+		return dataDepositoMesAno;
+	}
+
+	public void setDataDepositoMesAno(String dataDepositoMesAno) {
+		this.dataDepositoMesAno = dataDepositoMesAno;
+	}
+	
+	
+	
+	
 	
 	
 	

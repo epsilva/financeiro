@@ -68,15 +68,40 @@
 						<h1 class="panel-title aw-titulo-panel ">Total Mensal</h1>
 					</div>
 				</div>
-				<table class="table table-bordered table-striped">
+				<table data-toggle="table" class="table table-bordered table-striped table-condensed">
 					<thead>
 						<tr>
 							<th class="text-center col-sm-6">Data Deposito</th>
 							<th class="text-center col-sm-6">Valor</th>
 						</tr>
 					</thead>
+					<tbody>
+					<tr th:each=" valorMoedas : ${listaValorMesAno}">
+						<td class="text-center" th:text="${{valorMoedas.dataDepositoMesAno}}"></td>
+						<td class="text-center" th:text="${valorMoedas.valorDepositado}"></td>
+					</tr>
+					<tr>
+						<td class="text-center" colspan="6" th:if="${pager.getTotalPages() == 0}">Nenhum Depósito foi encontrado</td>
+					</tr>
+				</tbody>
 				</table>
 			</div>
+			<div class="panel panel-pagination">
+		<div class="panel-heading">
+			<div th:if="${pager.getTotalPages() > 0}" class="row">
+				<div th:if="${pager.getTotalPages() != 1}" class="form-group col-md-12 pagination-centered">
+					<ul class="pagination">
+						<li th:class="${pager.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
+						<li th:class="${pager.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize}, page=${pager.getNumber()})}">&larr;</a></li>
+						<li th:class="${pager.getNumber() == (page - 1)} ? 'active pointer-disabled'"
+							th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></li>
+						<li th:class="${pager.getNumber() + 1 == pager.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize}, page=${pager.getNumber() + 2})}">&rarr;</a></li>
+						<li th:class="${pager.getNumber() + 1 == pager.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize},page=${pager.getTotalPages()})}">&raquo;</a></li>
+					</ul>
+				</div>
+			</div>
+		</div> 
+	</div>
 		</div>
 	</div>
 </div>
