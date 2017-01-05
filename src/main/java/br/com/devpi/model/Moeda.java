@@ -14,13 +14,14 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 /**
  * Classe para definir a quantidade de moedas depositadas.
  * @author esdraspinheiro
  */
 @Entity
-public class Moeda {
+public class Moeda  implements Comparable<Moeda>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +63,7 @@ public class Moeda {
 	private Double valorMoedasCincoCentavos;
 	
 	@Transient
+	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valorDepositado;
 	
 	@Transient
@@ -235,6 +237,33 @@ public class Moeda {
 
 	public void setDataDepositoMesAno(String dataDepositoMesAno) {
 		this.dataDepositoMesAno = dataDepositoMesAno;
+	}
+
+	@Override
+	public int compareTo(Moeda o) {
+		return this.getDataDepositoMesAno().compareTo(o.getDataDepositoMesAno());
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Moeda other = (Moeda) obj;
+		if (dataDepositoMesAno == null) {
+			if (other.dataDepositoMesAno != null) {
+				return false;
+			}
+		} else if (!dataDepositoMesAno.equals(other.dataDepositoMesAno)) {
+			return false;
+		}
+		return true;
 	}
 	
 	

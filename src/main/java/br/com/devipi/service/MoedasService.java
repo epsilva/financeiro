@@ -2,6 +2,7 @@ package br.com.devipi.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.com.devpi.model.Moeda;
 
@@ -24,11 +25,24 @@ public interface MoedasService {
 	 */
 	Iterable<Moeda> save(Iterable<Moeda> persons);
 	
-	
 	/**
 	 *Método para remover um deposito
 	 * @param Long codigo
 	 */
 	void delete(Long codigo);
+	
+	/**
+	 * Soma valor de todas as moedas
+	 * @param moedas
+	 * @param modelAndView
+	 */
+	void somarValoresMoedas(Page<Moeda> moedas, ModelAndView modelAndView);
+	
+	/**
+	 * Soma valor de todas as moedas cadastradas no mes
+	 * @param moedas
+	 * @param modelAndView
+	 */
+	void somarValorePorMes(Page<Moeda> moedas, ModelAndView modelAndView);
 	
 }

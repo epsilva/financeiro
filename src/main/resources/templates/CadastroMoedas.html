@@ -10,12 +10,12 @@
 <div class="row">
 	<div class="panel-body">
 		<div class="col-md-6">
-			<form class="form-horizontal" method="POST" th:action="@{/financeiro}" th:object="${moeda}">
+			<form class="form-horizontal" method="POST" th:action="@{/moedas}" th:object="${moeda}">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="clearfix">
 							<h1 class="panel-title aw-titulo-panel ">Cadastro Moedas</h1>
-							<a class="btn btn-link aw-link-panel" th:href="@{/financeiro/moedas}">Pesquisa Moedas</a>
+							<a class="btn btn-link aw-link-panel" th:href="@{/moedas}">Pesquisa Moedas</a>
 						</div>
 					</div>
 		
@@ -78,7 +78,11 @@
 					<tbody>
 					<tr th:each=" valorMoedas : ${listaValorMesAno}">
 						<td class="text-center" th:text="${{valorMoedas.dataDepositoMesAno}}"></td>
-						<td class="text-center" th:text="${valorMoedas.valorDepositado}"></td>
+						<td class="text-center" th:text="|R$ ${valorMoedas.valorDepositado}|"></td>
+					</tr>
+					<tr th:if="${moedas.getTotalPages() > 0}">
+						<td class="text-center">Total</td>
+						<td class="text-center" th:text="|R$ ${totalValorMesAno}|"></td>
 					</tr>
 					<tr>
 						<td class="text-center" colspan="6" th:if="${pager.getTotalPages() == 0}">Nenhum Depósito foi encontrado</td>
@@ -91,12 +95,12 @@
 			<div th:if="${pager.getTotalPages() > 0}" class="row">
 				<div th:if="${pager.getTotalPages() != 1}" class="form-group col-md-12 pagination-centered">
 					<ul class="pagination">
-						<li th:class="${pager.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
-						<li th:class="${pager.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize}, page=${pager.getNumber()})}">&larr;</a></li>
+						<li th:class="${pager.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/moedas/cadastro/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
+						<li th:class="${pager.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/moedas/cadastro/(pageSize=${selectedPageSize}, page=${pager.getNumber()})}">&larr;</a></li>
 						<li th:class="${pager.getNumber() == (page - 1)} ? 'active pointer-disabled'"
-							th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></li>
-						<li th:class="${pager.getNumber() + 1 == pager.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize}, page=${pager.getNumber() + 2})}">&rarr;</a></li>
-						<li th:class="${pager.getNumber() + 1 == pager.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/novo/(pageSize=${selectedPageSize},page=${pager.getTotalPages()})}">&raquo;</a></li>
+							th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/moedas/cadastro/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></li>
+						<li th:class="${pager.getNumber() + 1 == pager.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/moedas/cadastro/(pageSize=${selectedPageSize}, page=${pager.getNumber() + 2})}">&rarr;</a></li>
+						<li th:class="${pager.getNumber() + 1 == pager.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/moedas/cadastro/(pageSize=${selectedPageSize},page=${pager.getTotalPages()})}">&raquo;</a></li>
 					</ul>
 				</div>
 			</div>

@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="panel-body">
 				<div class="col-md-6">
-					<form class="form-horizontal" method="POST"	th:action="@{/financeiro/desafio/novo}"	th:object="${desafioSemana}">
+					<form class="form-horizontal" method="POST"	th:action="@{/desafio}"	th:object="${desafioSemana}">
 						<div class="panel-body">
 							<input type="hidden" th:field="*{codigo}" />
 							<div class="form-group">
@@ -53,7 +53,7 @@
 								<td class="text-center" th:text="${{deposito.dataDeposito}}"></td>
 								<td class="text-center" th:text="${deposito.valorDepositado}"></td>
 								<td class="text-center">
-									<a class="btn btn-link btn-xs" th:href="@{/financeiro/desafio/novo/{codigo}(codigo=${deposito.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+									<a class="btn btn-link btn-xs" th:href="@{/desafio/{codigo}(codigo=${deposito.codigo})}" title="Editar" rel="tooltip" data-placement="top">
 										<span class="glyphicon glyphicon-pencil"></span>
 									</a> 
 									<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalDesafioSemana" th:attr="data-codigo=${deposito.codigo}, data-datadeposito=${deposito.dataDeposito}" title="Excluir" rel="tooltip" data-placement="top">
@@ -75,12 +75,12 @@
 							<div th:if="${desafiosSemana.getTotalPages() > 0}" class="row">
 								<div th:if="${desafiosSemana.getTotalPages() != 1}" class="form-group col-md-12 pagination-centered">
 									<ul class="pagination">
-										<li th:class="${desafiosSemana.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
-										<li th:class="${desafiosSemana.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=${desafiosSemana.getNumber()})}">&larr;</a></li>
+										<li th:class="${desafiosSemana.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/desafio/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
+										<li th:class="${desafiosSemana.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/desafio/(pageSize=${selectedPageSize}, page=${desafiosSemana.getNumber()})}">&larr;</a></li>
 										<li th:class="${desafiosSemana.getNumber() == (page - 1)} ? 'active pointer-disabled'"
-											th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></li>
-										<li th:class="${desafiosSemana.getNumber() + 1 == desafiosSemana.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize}, page=${desafiosSemana.getNumber() + 2})}">&rarr;</a></li>
-										<li th:class="${desafiosSemana.getNumber() + 1 == desafiosSemana.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/financeiro/desafio/(pageSize=${selectedPageSize},page=${desafiosSemana.getTotalPages()})}">&raquo;</a></li>
+											th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/desafio/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></li>
+										<li th:class="${desafiosSemana.getNumber() + 1 == desafiosSemana.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/desafio/(pageSize=${selectedPageSize}, page=${desafiosSemana.getNumber() + 2})}">&rarr;</a></li>
+										<li th:class="${desafiosSemana.getNumber() + 1 == desafiosSemana.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/desafio/(pageSize=${selectedPageSize},page=${desafiosSemana.getTotalPages()})}">&raquo;</a></li>
 									</ul>
 								</div>
 							</div>
