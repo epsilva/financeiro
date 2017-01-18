@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="modal fade" id="detalhesCalendario" tabindex="-1" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="panel-body" style="height: 100%">
+				<div class="modal-body">
+					<span>Tem certeza que deseja apagar este registro?</span>
+				</div>
+					<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+						<thead>
+							<tr>
+								<th class="text-center ">Data</th>
+								<th class="text-center col-md-2">Descrição</th>
+								<th class="text-center col-md-2">Valor R$</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr  th:each=" calendario : ${listaCalendario}">
+								<td class="text-center" th:text="${{calendario.data}}"></td>
+								<td class="text-center" th:text="${calendario.descricao}"></td>
+								<td class="text-center" th:text="${calendario.valor}"></td>
+								<td class="text-center">
+									<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</a> 
+<!-- 									<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal" th:attr="data-codigo=${moeda.codigo}, data-datadeposito=${moeda.dataDeposito}" title="Excluir" rel="tooltip" data-placement="top"> -->
+<!-- 										<span class="glyphicon glyphicon-remove"></span> -->
+<!-- 									</a> -->
+								</td>
+							</tr>
+						<tr>
+							<td class="text-center" colspan="6" th:if="${#lists.isEmpty(calendarios)}">Nenhuma informção foi encontrado</td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+	</div>
+</div>
+	
+</html>

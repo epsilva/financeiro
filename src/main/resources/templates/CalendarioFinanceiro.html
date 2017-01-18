@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultaq.net/nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+<head>
+<title>Financeiro - Calendario</title>
+</head>
+<section layout:fragment="conteudo">
+	<div class="panel panel-default" id="panelMain" th:object="${calendario}">
+		<div class="panel-heading">
+			<div class="clearfix">
+				<h1 class="panel-title aw-titulo-panel" style="padding-top: 0.5%">Calendario
+					Financeiro</h1>
+				<div class="form-group">
+					<div class="col-sm-2">
+						<select class="form-control" id="comboAno" th:field="*{ano}">
+							<option th:each="ano : ${anoEnum}" th:value="${ano.ano}" th:text="${ano.ano}"></option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<form method="GET" class="form-horizontal" th:attr="data-url-base='/calendario'" th:action="@{/calendario}" >
+			<div id="div-p" class="container-fluid" style="padding-top: 5%">
+				<div id="div-row" class="row">
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Janeiro</h4>
+						</div>
+						<div class="text-center">
+							<h2 class="text-center"
+								th:text="${Janeiro != null ? Janeiro.valorTotalMes : 0}"></h2>
+							<a class="btn btn-link btn-xs" data-toggle="modal"
+								data-target="#detalhesCalendario" title="Detalhes Calendario"
+								th:attr="data-janeiro=${Janeiro}"
+								rel="tooltip" data-placement="top"> <span
+								class="glyphicon glyphicon-th-list"> Detalhar</span>
+							</a>
+						</div>
+					</div>
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Fevereiro</h4>
+						</div>
+						<div class="text-center">
+							<h2 class="text-center" th:text="${Fevereiro != null ? Fevereiro.valorTotalMes : 0}"></h2>
+							<a class="btn btn-link btn-xs" id="idFevereiro" data-toggle="modal" onClick="retrieveGuests()" data-target="#detalhesCalendario" title="Detalhes Calendario"
+								rel="tooltip" data-placement="top"> <span class="glyphicon glyphicon-th-list"> Detalhar</span>
+							</a>
+						</div>
+					</div>
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Março</h4>
+						</div>
+					</div>
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Abril</h4>
+						</div>
+					</div>
+				</div>
+
+				<div id="div-row" class="row">
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Maio</h4>
+						</div>
+					</div>
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Junho</h4>
+						</div>
+					</div>
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Julho</h4>
+						</div>
+					</div>
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Agosto</h4>
+						</div>
+					</div>
+				</div>
+
+				<div id="div-row" class="row">
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Setembro</h4>
+						</div>
+					</div>
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Outubro</h4>
+						</div>
+					</div>
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Novembro</h4>
+						</div>
+					</div>
+					<div id="box" class="col-md-3">
+						<div id="div-name-row" class="row">
+							<h4 class="text-center" style="color: white">Dezembro</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div layout:include="DetalhesCalendario"></div>
+	</div>
+</section>
+</html>

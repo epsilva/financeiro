@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.devipi.service.MoedasService;
 import br.com.devpi.model.Moeda;
 import br.com.devpi.model.Pager;
+import br.com.devpi.service.MoedasService;
 
 @Controller
 @RequestMapping("/moedas")

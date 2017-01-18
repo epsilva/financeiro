@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultaq.net/nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+<head>
+<title>Calendario Financeiro</title>
+</head>
+<section layout:fragment="conteudo">
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="clearfix">
+			<h1 class="panel-title aw-titulo-panel ">Calendario Financeiro</h1>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="panel-body">
+				<div class="col-md-6">
+					<form class="form-horizontal" method="POST"	th:action="@{/calendario}"	th:object="${calendario}">
+						<div class="panel-body">
+							<input type="hidden" th:field="*{codigo}" />
+							<div class="form-group">
+								<div>
+									<input type="text" class="form-control text-center"	id="data" placeholder="Data" th:field="*{data}" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+										data-date-autoclose="true" data-date-today-highlight="true" />
+								</div>
+							</div>
+							<p></p>
+							<div class="form-group">
+								<div>
+									<input type="text" class="form-control text-center" id="descricao" placeholder="Descrição" th:field="*{descricao}" />
+								</div>
+							</div>
+							<p></p>
+							<div class="form-group">
+								<div>
+									<input type="text" class="form-control js-currency text-center" id="valor" placeholder="Valor" th:field="*{{valor}}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div>
+									<button type="submit" class="btn btn-primary">Salvar</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</section>
+</html>

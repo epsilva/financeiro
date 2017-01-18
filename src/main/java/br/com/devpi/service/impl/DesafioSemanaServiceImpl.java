@@ -11,9 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.devipi.service.DesafioSemanaService;
 import br.com.devpi.model.DesafioSemana;
 import br.com.devpi.repository.DesafioSemanaRepository;
+import br.com.devpi.service.DesafioSemanaService;
 
 @Service
 public class DesafioSemanaServiceImpl implements DesafioSemanaService{

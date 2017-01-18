@@ -6,9 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.devipi.service.PersonService;
 import br.com.devpi.model.Person;
 import br.com.devpi.repository.PersonRepository;
+import br.com.devpi.service.PersonService;
 
 @Service
 public class PersonServiceImpl implements PersonService {

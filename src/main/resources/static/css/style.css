@@ -1,9 +1,9 @@
-body{
-	padding-top: 55px;	
+body {
+	padding-top: 55px;
 }
 
 .navbar-brand {
-	padding-top: 0px; 
+	padding-top: 0px;
 }
 
 .panel-default {
@@ -27,7 +27,7 @@ body{
 .aw-link-panel {
 	float: right;
 	padding: 0px;
-} 
+}
 
 .aw-titulo-panel {
 	float: left;
@@ -37,7 +37,7 @@ body{
 .aw-titulo-navbar {
 	font-size: 25px;
 	color: #F0F8FF;
-	display:inline;	
+	display: inline;
 }
 
 .div-titulo {
@@ -65,7 +65,7 @@ body{
 }
 
 .panel-form {
-	padding-bottom:0%;
+	padding-bottom: 0%;
 	padding-top: -20%;
 }
 
@@ -78,4 +78,34 @@ body{
 	padding-top: 1%;
 	padding-bottom: 1%;
 	margin-bottom: -1.5%;
+}
+
+#box {
+	width: 25%;
+	height: 100%;
+	border-width: 1px;
+	border-width: small;
+	border-style: solid;
+	border-color: white;
+}
+
+#div-name-row {
+	width: 113%;
+	height: 25%;
+	border-width: 1px;
+	border-width: small;
+	border-style: solid;
+	border-color: black;
+	background-color: black;
+}
+
+#div-p {
+	margin-left: 5%;
+	margin-right: 5%;
+	width: 100%;
+}
+
+#div-row {
+	width: 92%;
+	height: 150px;
 }
