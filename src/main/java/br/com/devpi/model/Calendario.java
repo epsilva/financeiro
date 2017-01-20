@@ -19,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 @Entity
-public class Calendario {
+public class Calendario implements Comparable<Calendario>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,6 +99,11 @@ public class Calendario {
 
 	public void setValorTotalMes(BigDecimal valorTotalMes) {
 		this.valorTotalMes = valorTotalMes;
+	}
+	
+	@Override
+	public int compareTo(Calendario o) {
+		return this.getData().compareTo(o.getData());
 	}
 	
 	

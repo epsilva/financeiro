@@ -10,106 +10,776 @@
 	<div class="panel panel-default" id="panelMain" th:object="${calendario}">
 		<div class="panel-heading">
 			<div class="clearfix">
-				<h1 class="panel-title aw-titulo-panel" style="padding-top: 0.5%">Calendario
-					Financeiro</h1>
+				<h1 class="panel-title aw-titulo-panel" style="padding-top: 0.5%">Calendario Financeiro</h1>
 				<div class="form-group">
 					<div class="col-sm-2">
 						<select class="form-control" id="comboAno" th:field="*{ano}">
 							<option th:each="ano : ${anoEnum}" th:value="${ano.ano}" th:text="${ano.ano}"></option>
 						</select>
 					</div>
+					<a class="btn btn-primary" type="button" style="float: right" data-toggle="modal" data-target="#modalCadastro">Cadastrar</a>
 				</div>
 			</div>
 		</div>
+		
 		<form method="GET" class="form-horizontal" th:attr="data-url-base='/calendario'" th:action="@{/calendario}" >
-			<div id="div-p" class="container-fluid" style="padding-top: 5%">
-				<div id="div-row" class="row">
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Janeiro</h4>
-						</div>
-						<div class="text-center">
-							<h2 class="text-center"
-								th:text="${Janeiro != null ? Janeiro.valorTotalMes : 0}"></h2>
-							<a class="btn btn-link btn-xs" data-toggle="modal"
-								data-target="#detalhesCalendario" title="Detalhes Calendario"
-								th:attr="data-janeiro=${Janeiro}"
-								rel="tooltip" data-placement="top"> <span
-								class="glyphicon glyphicon-th-list"> Detalhar</span>
-							</a>
-						</div>
+			<!-- PRIMEIRA LINHA -->
+			<div id="box" class="panel-body">
+				<!-- MES DE JANEIRO -->
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Janeiro</h4>
 					</div>
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Fevereiro</h4>
-						</div>
-						<div class="text-center">
-							<h2 class="text-center" th:text="${Fevereiro != null ? Fevereiro.valorTotalMes : 0}"></h2>
-							<a class="btn btn-link btn-xs" id="idFevereiro" data-toggle="modal" onClick="retrieveGuests()" data-target="#detalhesCalendario" title="Detalhes Calendario"
-								rel="tooltip" data-placement="top"> <span class="glyphicon glyphicon-th-list"> Detalhar</span>
-							</a>
-						</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Janeiro != null ? Janeiro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
 					</div>
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Março</h4>
-						</div>
-					</div>
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Abril</h4>
-						</div>
-					</div>
-				</div>
-
-				<div id="div-row" class="row">
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Maio</h4>
-						</div>
-					</div>
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Junho</h4>
-						</div>
-					</div>
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Julho</h4>
-						</div>
-					</div>
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Agosto</h4>
-						</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Janeiro == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Janeiro != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendario"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendario" th:if="${Janeiro != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Janeiro</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Janeiro.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs js-editar-calendario" data-toggle="modal" data-target="#modalCadastro" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}, data-data=${calendario.data}, data-valor=${calendario.valor}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Janeiro.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
 					</div>
 				</div>
-
-				<div id="div-row" class="row">
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Setembro</h4>
-						</div>
+				
+				<!-- MES DE FEVEREIRO -->
+				
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Fevereiro</h4>
 					</div>
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Outubro</h4>
-						</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Fevereiro != null ? Fevereiro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
 					</div>
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Novembro</h4>
-						</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Fevereiro == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Fevereiro != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioFevereiro"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioFevereiro" th:if="${Fevereiro != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Fevereiro</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Fevereiro.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Fevereiro.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
 					</div>
-					<div id="box" class="col-md-3">
-						<div id="div-name-row" class="row">
-							<h4 class="text-center" style="color: white">Dezembro</h4>
-						</div>
+				</div>
+				
+				<!-- MES DE MARCO -->
+				
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Março</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Marco != null ? Marco.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Marco == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Marco != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioMarco"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioMarco" th:if="${Marco != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Março</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Marco.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Marco.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				
+				<!-- MES ABRIL -->
+				
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Abril</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Abril != null ? Abril.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Abril == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Abril != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioAbril"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioAbril" th:if="${Abril != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Março</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Abril.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Abril.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			
+			<!-- SEGUNDA LINHA -->
+			<div id="box" class="panel-body">
+				<!-- MES DE JANEIRO -->
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Maio</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Maio != null ? Maio.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Maio == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Maio != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioMaio"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioMaio" th:if="${Maio != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Maio</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Maio.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Maio.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				
+				<!-- MES DE JUNHO -->
+				
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Junho</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Junho != null ? Junho.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Junho == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Junho != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioJunho"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioJunho" th:if="${Junho != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Junho</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Junho.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Junho.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				
+				<!-- MES DE JULHO -->
+				
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Julho</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Julho != null ? Julho.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Julho == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Julho != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioJulho"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioJulho" th:if="${Julho != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Julho</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Julho.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Julho.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				
+				<!-- MES AGOSTO -->
+				
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Agosto</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Agosto != null ? Agosto.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Agosto == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Abril != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioAgosto"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioAgosto" th:if="${Agosto != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Agosto</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Agosto.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Agosto.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			
+			
+			<!-- TERCEIRO LINHA -->
+			<div id="box" class="panel-body">
+				<!-- MES DE SETEMBRO -->
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Setembro</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Setembro != null ? Setembro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Setembro == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Setembro != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioSetembro"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioSetembro" th:if="${Setembro != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Setembro</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Setembro.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Setembro.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				
+				<!-- MES DE OUTUBRO -->
+				
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Outubro</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Outubro != null ? Outubro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Outubro == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Outubro != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioOutubro"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioOutubro" th:if="${Outubro != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Outubro</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Outubro.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Outubro.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				
+				<!-- MES DE NOVEMBRO -->
+				
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Novembro</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Novembro != null ? Novembro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Novembro == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Novembro != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioNovembro"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioNovembro" th:if="${Novembro != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Novembro</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Novembro.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Novembro.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				
+				<!-- MES DEZEMBRO -->
+				
+				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
+					<div id="div-name-row" class="row">
+						<h4 class="text-center" style="color: black">Dezembro</h4>
+					</div>
+					<div id="div-name-row" class="row">
+						<h2 class="text-center"	th:text="${Dezembro != null ? Dezembro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+					</div>
+						<span class="glyphicon glyphicon-th-list" th:if="${Dezembro == null}">Detalhar</span>
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Dezembro != null}"
+						data-placement="top" data-toggle="modal" data-target="#detalhesCalendarioDezembro"> 
+						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
+					</a>
+					<div class="modal fade" id="detalhesCalendarioDezembro" th:if="${Dezembro != null}" tabindex="-1" data-keyboard="false" data-backdrop="static">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Deltalhe Mês Dezembo</h4>
+								</div>	
+								<div class="modal-body" style="height: 100%">	
+									<table class="table table-bordered table-striped table-condensed" id="tabelaDetalhe">
+										<thead>
+											<tr>
+												<th class="text-center col-md-2">Data</th>
+												<th class="text-center col-md-6">Descrição</th>
+												<th class="text-center col-md-2">Valor R$</th>
+											</tr>
+										</thead>
+											<tbody>
+												<tr th:each=" calendario : ${Dezembro.listaCalendario}">
+													<td class="text-center" th:text="${{calendario.data}}"></td>
+													<td class="text-center" th:text="${calendario.descricao}"></td>
+													<td class="text-center" th:text="${calendario.valor}"></td>
+													<td class="text-center">
+														<a class="btn btn-link btn-xs" th:href="@{/calendario/novo/{codigo}(codigo=${calendario.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</a>
+														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+															<span class="glyphicon glyphicon-remove"></span>
+														</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="text-center" colspan="6"	th:if="${#lists.isEmpty(Dezembro.listaCalendario)}">Nenhuma informção foi encontrado</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" th:href="@{/calendario/novo}" type="button">Cadastrar</a>
+									<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>	
 					</div>
 				</div>
 			</div>
 		</form>
-		<div layout:include="DetalhesCalendario"></div>
 	</div>
+		<!-- Modal -->
+<!-- 	<div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> -->
+<!-- 	  <div class="modal-dialog" role="document"> -->
+<!-- 	    <div class="modal-content"> -->
+<!-- 	      <div class="modal-header"> -->
+<!-- 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+<!-- 	        <h4 class="modal-title" id="myModalLabel">Modal title</h4> -->
+<!-- 	      </div> -->
+<!-- 	      <form th:action="@{/calendario}" method="POST" th:object="${calendario}"> -->
+<!-- 		      <div class="modal-body"> -->
+<!-- 	        		<input type="hidden" th:field="*{codigo}" /> -->
+<!-- 							<div class="form-group"> -->
+<!-- 								<div> -->
+<!-- 									<input type="text" class="form-control text-center"	id="data" placeholder="Data" th:field="*{data}" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" -->
+<!-- 										data-date-autoclose="true" data-date-today-highlight="true" /> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							<p></p> -->
+<!-- 							<div class="form-group"> -->
+<!-- 								<div> -->
+<!-- 									<input type="text" class="form-control text-center" id="descricao" placeholder="Descrição" th:field="*{descricao}" /> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							<p></p> -->
+<!-- 							<div class="form-group"> -->
+<!-- 								<div> -->
+<!-- 									<input type="text" class="form-control js-currency text-center" id="valor" placeholder="Valor" th:field="*{{valor}}" /> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							<div class="modal-footer"> -->
+<!-- 							</div> -->
+<!-- 		      			</div> -->
+<!-- 	      <div class="modal-footer"> -->
+<!-- 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!-- 	        <button type="submit" class="btn btn-primary">Salvar</button> -->
+<!-- 	      </div> -->
+<!-- 	      </form> -->
+<!-- 	    </div> -->
+<!-- 	  </div> -->
+<!-- 	</div> -->
+		<div layout:include="ConfirmacaoExclusaoModalCalendario"></div>
+		<div layout:include="CadastroCalendario"></div>
 </section>
 </html>

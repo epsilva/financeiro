@@ -30,7 +30,7 @@ public class CalendarioFinanceiroServiceImpl implements CalendarioFinanceiroServ
 
 	@Override
 	public void delete(Long codigo) {
-		// TODO Auto-generated method stub
+		calendarioFinanceriroRepository.delete(codigo);
 		
 	}
 
