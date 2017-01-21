@@ -59,7 +59,7 @@
 													<td class="text-center" th:text="${calendario.descricao}"></td>
 													<td class="text-center" th:text="${calendario.valor}"></td>
 													<td class="text-center">
-														<a class="btn btn-link btn-xs js-editar-calendario" data-toggle="modal" data-target="#modalCadastro" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}, data-data=${calendario.data}, data-valor=${calendario.valor}" title="Editar" rel="tooltip" data-placement="top">
+														<a class="btn btn-link btn-xs" data-toggle="modal" th:onclick="|retrieveGuests('${calendario.codigo}')|" data-target="#cadastroCalendario" title="Editar" rel="tooltip" data-placement="top">
 															<span class="glyphicon glyphicon-pencil"></span>
 														</a>
 														<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendario" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
@@ -739,47 +739,19 @@
 			</div>
 		</form>
 	</div>
-		<!-- Modal -->
-<!-- 	<div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> -->
-<!-- 	  <div class="modal-dialog" role="document"> -->
-<!-- 	    <div class="modal-content"> -->
-<!-- 	      <div class="modal-header"> -->
-<!-- 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-<!-- 	        <h4 class="modal-title" id="myModalLabel">Modal title</h4> -->
-<!-- 	      </div> -->
-<!-- 	      <form th:action="@{/calendario}" method="POST" th:object="${calendario}"> -->
-<!-- 		      <div class="modal-body"> -->
-<!-- 	        		<input type="hidden" th:field="*{codigo}" /> -->
-<!-- 							<div class="form-group"> -->
-<!-- 								<div> -->
-<!-- 									<input type="text" class="form-control text-center"	id="data" placeholder="Data" th:field="*{data}" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" -->
-<!-- 										data-date-autoclose="true" data-date-today-highlight="true" /> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<p></p> -->
-<!-- 							<div class="form-group"> -->
-<!-- 								<div> -->
-<!-- 									<input type="text" class="form-control text-center" id="descricao" placeholder="Descrição" th:field="*{descricao}" /> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<p></p> -->
-<!-- 							<div class="form-group"> -->
-<!-- 								<div> -->
-<!-- 									<input type="text" class="form-control js-currency text-center" id="valor" placeholder="Valor" th:field="*{{valor}}" /> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="modal-footer"> -->
-<!-- 							</div> -->
-<!-- 		      			</div> -->
-<!-- 	      <div class="modal-footer"> -->
-<!-- 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-<!-- 	        <button type="submit" class="btn btn-primary">Salvar</button> -->
-<!-- 	      </div> -->
-<!-- 	      </form> -->
-<!-- 	    </div> -->
-<!-- 	  </div> -->
-<!-- 	</div> -->
 		<div layout:include="ConfirmacaoExclusaoModalCalendario"></div>
-		<div layout:include="CadastroCalendario"></div>
+<!-- 		<div layout:include="CadastroCalendario"></div> -->
+<div class="modal fade" id="cadastroCalendario" tabindex="-1" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="panel-body" style="height: 100%">
+							<div id="resultsBlock">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 </section>
+
 </html>

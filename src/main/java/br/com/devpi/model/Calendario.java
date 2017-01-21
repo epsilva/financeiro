@@ -34,6 +34,8 @@ public class Calendario implements Comparable<Calendario>{
 	
 	private String ano;
 	
+	private String mes;
+	
 	@NotNull(message = "Date de vencimento é obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
@@ -83,6 +85,14 @@ public class Calendario implements Comparable<Calendario>{
 
 	public void setAno(String ano) {
 		this.ano = ano;
+	}
+	
+	public String getMes() {
+		return mes;
+	}
+
+	public void setMes(String mes) {
+		this.mes = mes;
 	}
 
 	public List<Calendario> getListaCalendario() {

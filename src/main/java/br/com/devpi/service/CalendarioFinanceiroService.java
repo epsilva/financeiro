@@ -12,6 +12,8 @@ public interface CalendarioFinanceiroService {
 	
 	List<Calendario> findByAno(String ano);
 	
+	List<Calendario> findByAnoMes(String ano, String mes);
+	
 	void delete(Long codigo);
 	
 }

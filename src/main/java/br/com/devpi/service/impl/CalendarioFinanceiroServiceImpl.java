@@ -25,6 +25,7 @@ public class CalendarioFinanceiroServiceImpl implements CalendarioFinanceiroServ
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(calendarioFinanceiro.getData());
 		calendarioFinanceiro.setAno(String.valueOf(calendar.get(Calendar.YEAR)));
+		calendarioFinanceiro.setMes(String.valueOf(calendar.get(Calendar.MONTH)));
 		return calendarioFinanceriroRepository.save(calendarioFinanceiro) ;
 	}
 
@@ -42,6 +43,11 @@ public class CalendarioFinanceiroServiceImpl implements CalendarioFinanceiroServ
 	@Override
 	public List<Calendario> findByAno(String ano) {
 		return calendarioFinanceriroRepository.findByAnoContaining(ano);
+	}
+
+	@Override
+	public List<Calendario> findByAnoMes(String ano, String mes) {
+		return calendarioFinanceriroRepository.findByAnoAndMesContaining(ano, mes);
 	}
 	
 	

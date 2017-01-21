@@ -49,37 +49,6 @@ $('#confirmacaoExclusaoModal').on(
 
 $(function(){
 	$('.js-currency').maskMoney({decimal: ',', thousands: '.', allowZero: true});
-//	$('.js-editar-calendario').on('click', function(event){
-//		event.preventDefault();
-//		var botaoReceber = $(event.currentTarget);
-//		var urlReceber = botaoReceber.attr('href');
-//		
-//		var response = $.ajax({
-//			url: urlReceber,
-//			type: 'PUT'
-//		});
-//		
-//		response.done(function(e){
-//			$('#modalCadastro').on('show.bs.modal', function(event) {
-//				console.log('teste');
-//				var button = $(event.relatedTarget);
-//				var modal = $(this);
-//				var codigo = button.data('codigo');
-//				var form = modal.find('form');
-//				modal.show();
-//				
-//			});
-//			
-//			
-////			var codigoTitulo = botaoReceber.data('codigo');
-////			$('[id=' + codigoTitulo + ']').html('<span class="label label-success">'+e+'</span>');
-////			botaoReceber.hide();
-//		});
-//		response.fail(function(e){
-//			console.log(e);
-//			alert('Erro ao receber cobrança');
-//		});
-//	});
 });
 
 $('#confirmacaoExclusaoModalDesafioSemana').on(
@@ -129,22 +98,19 @@ $('#confirmacaoExclusaoModalCalendario').on(
 });
 
 
-$('#modalCadastro').on('show.bs.modal', function(event) {
-	var button = $(event.relatedTarget);
-	var modal = $(this);
-	var codigo = button.data('codigo');
-	var data = button.data('data');
-	var descricao = button.data('descricao');
-	var valor = button.data('valor');
-	var form = modal.find('form');
-	
-	modal.find('.panel-body input').val(codigo);
-//	modal.find('.data').val(data);
-//	modal.find('.descricao').val(descricao);
-//	modal.find('.valor').val(valor);
-	
-	
-});
+function retrieveGuests(codigo) {
+	var url = '/calendario/novo';
+	if(codigo){
+		url = url + '/' + codigo;
+	}
+	$("#resultsBlock").load(url);
+}
+
+function detalheLista(ano, mes) {
+	var url = '/calendario/detalhe';
+		url = url + '/' + ano + '/' + mes;
+	$("#resultsBlockListas").load(url);
+}
 
 //$('.botao').on('click', function(event) {
 //	

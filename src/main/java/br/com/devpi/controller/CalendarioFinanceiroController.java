@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +48,7 @@ public class CalendarioFinanceiroController {
 	}
 	
 	private ModelAndView modelCalendarioMeses(List<Calendario> listaCalendario){
-		ModelAndView mv = new ModelAndView("CalendarioFinanceiro");
+		ModelAndView mv = new ModelAndView("Calendario");
 		Calendario calendario = new Calendario();
 		List<Calendario> listaCal = new ArrayList<Calendario>();
 		if(!listaCalendario.isEmpty()){
@@ -65,6 +66,7 @@ public class CalendarioFinanceiroController {
 				}
 			}
 			calendario.setAno(cal.getAno());
+			calendario.setMes(cal.getMes());
 			calendario.setCodigo(cal.getCodigo());
 			calendario.setData(cal.getData());
 			calendario.setDescricao(cal.getDescricao());
@@ -85,10 +87,15 @@ public class CalendarioFinanceiroController {
 	}
 	
 	@RequestMapping("/novo/{codigo}")
-	public ModelAndView edicao(@PathVariable("codigo") Calendario calendario){
-		ModelAndView mv = new ModelAndView("CadastroCalendario");
-		mv.addObject(calendario);
-		return mv;
+	public String edicao(@PathVariable("codigo") Calendario calendario, Model model){
+		model.addAttribute(calendario);
+		return "CadastroCalendario :: cadastroCalendario";
+	}
+	
+	@RequestMapping("/detalhe/{ano}/{mes}")
+	public String detalheCalendario(@PathVariable("ano") String ano,@PathVariable("mes") String mes , Model model){
+		model.addAttribute("listaCalendario", calendarioFinanceiroService.findByAnoMes(ano, mes));
+		return "DetalhesCalendario :: listaCalendario";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
