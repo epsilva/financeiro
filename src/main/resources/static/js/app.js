@@ -51,6 +51,13 @@ $(function(){
 	$('.js-currency').maskMoney({decimal: ',', thousands: '.', allowZero: true});
 });
 
+$('#cadastroCalendario').on(
+		'show.bs.modal',
+		function(event) {
+			$('.js-currency').maskMoney({decimal: ',', thousands: '.', allowZero: true});
+});
+
+
 $('#confirmacaoExclusaoModalDesafioSemana').on(
 		'show.bs.modal',
 		function(event) {

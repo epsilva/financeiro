@@ -4,6 +4,9 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 	<div th:fragment="listaCalendario">
+		<div class="modal-header">
+			<h4 class="modal-title" th:text="${mes}">Detalhe Calendario</h4>
+		</div>
 		<div class="panel-body" style="height: 100%">
 			<table class="table table-hover table-bordered table-striped table-condensed" id="tabelaDetalhe" cellspacing="0" width="100%">
 				<thead>

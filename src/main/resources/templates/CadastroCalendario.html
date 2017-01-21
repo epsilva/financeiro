@@ -10,6 +10,10 @@
 	<div class="panel-body" style="height: 100%">
 		<form id="formCadastroCalendario" class="form-horizontal" method="POST"	th:action="@{/calendario}"	th:object="${calendario}">
 			<div class="insertBlock">
+				<div class="modal-header">
+					<h4 class="modal-title">Cadastro Calendario</h4>
+				</div>
+				<div class="modal-body">
 				<input type="hidden" id="codigo" th:field="*{codigo}" />
 					<div class="form-group">
 						<div>
@@ -28,6 +32,7 @@
 					<div>
 						<input type="text" class="form-control js-currency text-center" id="valor" placeholder="Valor" th:field="*{{valor}}" />
 					</div>
+				</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Salvar</button>

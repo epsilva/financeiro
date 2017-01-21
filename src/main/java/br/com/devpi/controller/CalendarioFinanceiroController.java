@@ -93,8 +93,9 @@ public class CalendarioFinanceiroController {
 	}
 	
 	@RequestMapping("/detalhe/{ano}/{mes}")
-	public String detalheCalendario(@PathVariable("ano") String ano,@PathVariable("mes") String mes , Model model){
+	public String detalheCalendario(@PathVariable("ano") String ano,@PathVariable("mes") String mes , Model model, Calendario calendario){
 		model.addAttribute("listaCalendario", calendarioFinanceiroService.findByAnoMes(ano, mes));
+		model.addAttribute("mes", MesesEnum.getDescricaoById(Integer.parseInt(mes)));
 		return "DetalhesCalendario :: listaCalendario";
 	}
 	

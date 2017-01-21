@@ -88,9 +88,9 @@
 			</div>
 			
 			
-			<!-- SEGUNDA LINHA -->
+ 			<!-- SEGUNDA LINHA -->
 			<div id="box" class="panel-body">
-				<!-- MES MAIO -->
+<!-- 				MES MAIO -->
 				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
 					<div id="div-name-row" class="row">
 						<h4 class="text-center" style="color: black">Maio</h4>
@@ -105,7 +105,7 @@
 					</a>
 				</div>
 				
-				<!-- MES DE JUNHO -->
+<!-- 				MES DE JUNHO -->
 				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
 					<div id="div-name-row" class="row">
 						<h4 class="text-center" style="color: black">Junho</h4>
@@ -120,7 +120,7 @@
 					</a>
 				</div>
 				
-				<!-- MES JULHO -->
+<!-- 				MES JULHO -->
 				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
 					<div id="div-name-row" class="row">
 						<h4 class="text-center" style="color: black">Julho</h4>
@@ -135,7 +135,7 @@
 					</a>
 				</div>
 				
-				<!-- MES AGOSTO -->
+<!-- 				MES AGOSTO -->
 				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
 					<div id="div-name-row" class="row">
 						<h4 class="text-center" style="color: black">Agosto</h4>
@@ -153,7 +153,7 @@
 			
 			<!-- TERCEIRA LINHA -->
 			<div id="box" class="panel-body">
-				<!-- MES SETEMBRO -->
+<!-- 				MES SETEMBRO -->
 				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
 					<div id="div-name-row" class="row">
 						<h4 class="text-center" style="color: black">Setembro</h4>
@@ -162,13 +162,13 @@
 						<h2 class="text-center"	th:text="${Setembro != null ? Setembro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Setembro == null}">Detalhar</span>
-					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Maio != null}"
+					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Setembro != null}"
 						data-placement="top" data-toggle="modal" th:onclick="|detalheLista('${Setembro.ano}', '${Setembro.mes}')|" data-target="#listaCalendario"> 
 						<span class="glyphicon glyphicon-th-list"> Detalhar</span>
 					</a>
 				</div>
 				
-				<!-- MES DE OUTUBRO -->
+<!-- 				MES DE OUTUBRO -->
 				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
 					<div id="div-name-row" class="row">
 						<h4 class="text-center" style="color: black">Outubro</h4>
@@ -183,7 +183,7 @@
 					</a>
 				</div>
 				
-				<!-- MES NOVEMBRO -->
+<!-- 				MES NOVEMBRO -->
 				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
 					<div id="div-name-row" class="row">
 						<h4 class="text-center" style="color: black">Novembro</h4>
@@ -198,7 +198,7 @@
 					</a>
 				</div>
 				
-				<!-- MES DEZEMBRO -->
+<!-- 				MES DEZEMBRO -->
 				<div id="boxCalendario" class="col-sm-3 col-xs-6 col-md-3 text-center">
 					<div id="div-name-row" class="row">
 						<h4 class="text-center" style="color: black">Dezembro</h4>
@@ -219,10 +219,8 @@
 	<div class="modal fade" id="listaCalendario" tabindex="-1" data-keyboard="false" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="panel-body" style="height: 100%">
-					<div id="resultsBlockListas">
+				<div id="resultsBlockListas">
 
-					</div>
 				</div>
 			</div>
 		</div>
@@ -230,10 +228,8 @@
 	<div class="modal fade" id="cadastroCalendario" tabindex="-1" data-keyboard="false" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="panel-body" style="height: 100%">
-					<div id="resultsBlock">
+				<div id="resultsBlock">
 
-					</div>
 				</div>
 			</div>
 		</div>
