@@ -2,6 +2,9 @@ $(document).ready(function() {
 	$('[rel="tooltip"]').tooltip();
 	changePageAndSize();
 	changeAno();
+	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+	    $("#success-alert").slideUp(500);
+	});
 });
 
 function changeAno(){
@@ -121,6 +124,51 @@ function detalheLista(ano, mes) {
 		url = url + '/' + ano + '/' + mes;
 	$("#resultsBlockListas").load(url);
 }
+
+function validarCampos(frm) {
+	var erros = 0;
+	if(frm.data.value == ''){
+		$.bootstrapGrowl('Informe a Data!',{
+			type: 'danger',
+			delay: 2000,
+		});
+		$("#data").css('background', '#fdf59a');
+		$("#data").click(function(){
+			$("#data").css("background","#fff");
+
+		});
+		erros++;
+	}
+	if(frm.descricao.value == ''){
+		$.bootstrapGrowl('Informe a Descrição!',{
+			type: 'danger',
+			delay: 2000,
+		});
+		$("#descricao").css('background', '#fdf59a');
+		$("#descricao").click(function(){
+			$("#descricao").css("background","#fff");
+
+		});
+		erros++;
+	}
+	if(frm.valor.value == ''){
+		$.bootstrapGrowl('Informe o valor!',{
+			type: 'danger',
+			delay: 2000,
+		});
+		$("#valor").css('background', '#fdf59a');
+		$("#valor").click(function(){
+			$("#valor").css("background","#fff");
+
+		});
+		erros++;
+	}
+	if(erros>0){
+		return false;
+	}
+	frm.submit();
+}
+
 
 //$('.botao').on('click', function(event) {
 //	

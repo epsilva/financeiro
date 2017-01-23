@@ -31,8 +31,8 @@ import br.com.devpi.service.CalendarioFinanceiroService;
 public class CalendarioFinanceiroController {
 	
 	private static String ATRIBUTO_MENSAGEM = "mensagem";
-	private static String MSG_SALVO_CONSUCESSO = "Cadastro salvo com sucesso!!";
-	private static String MSG_EXCLUSAO_CONSUCESSO = "Título removido com sucesso!";
+	private static String MSG_SALVO_CONSUCESSO = "Conta salvo com sucesso!!";
+	private static String MSG_EXCLUSAO_CONSUCESSO = "Conta removida com sucesso!";
 	
 	@Autowired
 	private CalendarioFinanceiroService calendarioFinanceiroService;
@@ -133,6 +133,7 @@ public class CalendarioFinanceiroController {
 	@RequestMapping(value="{codigo}", method = RequestMethod.DELETE)
 	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes){
 		calendarioFinanceiroService.delete(codigo);
+		attributes.addFlashAttribute(ATRIBUTO_MENSAGEM, MSG_EXCLUSAO_CONSUCESSO);
 		return "redirect:/calendario";
 	}
 	

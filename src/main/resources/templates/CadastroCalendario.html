@@ -8,7 +8,7 @@
 <body>
 	<div th:fragment="cadastroCalendario">
 	<div class="panel-body" style="height: 100%">
-		<form id="formCadastroCalendario" class="form-horizontal" method="POST"	th:action="@{/calendario}"	th:object="${calendario}">
+		<form id="formCadastroCalendario" class="form-horizontal" onsubmit="validarCampos(this); return false;" method="POST"	th:action="@{/calendario}"	th:object="${calendario}">
 			<div layout:include="MensagemGeral"></div>
 			<div layout:include="MensagemErro"></div>
 			<div class="insertBlock">

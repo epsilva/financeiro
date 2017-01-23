@@ -24,7 +24,6 @@
 		
 		<form method="GET" class="form-horizontal" th:attr="data-url-base='/calendario'" th:action="@{/calendario}" >
 			<div layout:include="MensagemGeral"></div>
-			<div layout:include="MensagemErro"></div>
 			<!-- PRIMEIRA LINHA -->
 			<div id="box" class="panel-body">
 				<!-- MES DE JANEIRO -->
@@ -73,8 +72,8 @@
 					<div id="div-name-row" class="row">
 						<h2 class="text-center"	th:text="${{Marco != null ? Marco.valorTotalMes : 0}}"></h2>
 						<div class="col-md-12">
-							<h5 class="col-md-6 text-center" th:text="|R$ ${{Marco != null ? Janeiro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
-							<h5 class="col-md-6 text-center" th:text="|R$ ${{Marco != null ? Janeiro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Marco != null ? Marco.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Marco != null ? Marco.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
 						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Marco == null}">Detalhar</span>
@@ -214,8 +213,8 @@
 					<div id="div-name-row" class="row">
 						<h2 class="text-center"	th:text="${{Outubro != null ? Outubro.valorTotalMes : 0}}"></h2>
 						<div class="col-md-12">
-							<h5 class="col-md-6 text-center" th:text="|R$ ${{Julho != null ? Outubro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
-							<h5 class="col-md-6 text-center" th:text="|R$ ${{Julho != null ? Outubro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Outubro != null ? Outubro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Outubro != null ? Outubro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
 						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Outubro == null}">Detalhar</span>

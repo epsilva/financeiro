@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultaq.net/nz/thymeleaf/layout">
 
-<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+<div class="alert alert-success" id="success-alert" th:if="${!#strings.isEmpty(mensagem)}">
 	<span th:text="${mensagem}">Título Cadastrado com Sucesso!!</span>
 </div>
 
