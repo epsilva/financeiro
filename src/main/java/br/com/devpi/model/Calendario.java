@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,11 +43,23 @@ public class Calendario implements Comparable<Calendario>{
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	
 	@Transient
 	private List<Calendario> listaCalendario;
 	
+	@NumberFormat(pattern = "#,##0.00")
 	@Transient
 	private BigDecimal valorTotalMes = new BigDecimal(0);
+	
+	@NumberFormat(pattern = "#,##0.00")
+	@Transient
+	private BigDecimal valorTotalPago = new BigDecimal(0);
+	
+	@NumberFormat(pattern = "#,##0.00")
+	@Transient
+	private BigDecimal valorTotalPendente = new BigDecimal(0);
 
 	public String getDescricao() {
 		return descricao;
@@ -94,6 +108,26 @@ public class Calendario implements Comparable<Calendario>{
 	public void setMes(String mes) {
 		this.mes = mes;
 	}
+	
+	public boolean isPago(){
+		return Status.PAGO.equals(this.status);
+	}
+	
+	public boolean isPendente(){
+		return Status.PENDENTE.equals(this.status);
+	}
+	
+	public boolean isCancelado(){
+		return Status.CANCELADO.equals(this.status);
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 	public List<Calendario> getListaCalendario() {
 		return listaCalendario;
@@ -111,6 +145,22 @@ public class Calendario implements Comparable<Calendario>{
 		this.valorTotalMes = valorTotalMes;
 	}
 	
+	public BigDecimal getValorTotalPago() {
+		return valorTotalPago;
+	}
+
+	public void setValorTotalPago(BigDecimal valorTotalPago) {
+		this.valorTotalPago = valorTotalPago;
+	}
+
+	public BigDecimal getValorTotalPendente() {
+		return valorTotalPendente;
+	}
+
+	public void setValorTotalPendente(BigDecimal valorTotalPendente) {
+		this.valorTotalPendente = valorTotalPendente;
+	}
+
 	@Override
 	public int compareTo(Calendario o) {
 		return this.getData().compareTo(o.getData());

@@ -10,21 +10,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.devpi.model.Calendario;
 import br.com.devpi.model.MesesEnum;
 import br.com.devpi.model.ParametroEnum;
+import br.com.devpi.model.Status;
 import br.com.devpi.service.CalendarioFinanceiroService;
 
 @Controller
 @RequestMapping("/calendario")
 public class CalendarioFinanceiroController {
+	
+	private static String ATRIBUTO_MENSAGEM = "mensagem";
+	private static String MSG_SALVO_CONSUCESSO = "Cadastro salvo com sucesso!!";
+	private static String MSG_EXCLUSAO_CONSUCESSO = "Título removido com sucesso!";
 	
 	@Autowired
 	private CalendarioFinanceiroService calendarioFinanceiroService;
@@ -70,7 +78,15 @@ public class CalendarioFinanceiroController {
 			calendario.setCodigo(cal.getCodigo());
 			calendario.setData(cal.getData());
 			calendario.setDescricao(cal.getDescricao());
-			calendario.setValorTotalMes(cal.getValor().add(calendario.getValorTotalMes()));
+			if(!cal.isCancelado()){
+				calendario.setValorTotalMes(cal.getValor().add(calendario.getValorTotalMes()));
+			}
+			if(cal.isPago()){
+				calendario.setValorTotalPago(cal.getValor().add(calendario.getValorTotalPago()));
+			}
+			if(cal.isPendente()){
+				calendario.setValorTotalPendente(cal.getValor().add(calendario.getValorTotalPendente()));
+			}
 			calendario.setValor(cal.getValor());
 			listaCal.add(cal);
 			calendario.setListaCalendario(listaCal);
@@ -100,9 +116,18 @@ public class CalendarioFinanceiroController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvarCalendario(Calendario calendarioFinanceiro){
-		calendarioFinanceiroService.save(calendarioFinanceiro);
-		return "redirect:/calendario";
+	public String salvarCalendario(@Validated Calendario calendarioFinanceiro, Errors erros, RedirectAttributes attributes){
+		if(erros.hasErrors()){
+			return "CadastroCalendario :: cadastroCalendario";
+		}
+		try{
+			calendarioFinanceiroService.save(calendarioFinanceiro);
+			attributes.addFlashAttribute(ATRIBUTO_MENSAGEM, MSG_SALVO_CONSUCESSO);
+			return "redirect:/calendario";
+		}catch (Exception e) {
+			erros.rejectValue("data", null, e.getMessage());
+			return "CadastroCalendario :: cadastroCalendario";
+		}
 	}
 	
 	@RequestMapping(value="{codigo}", method = RequestMethod.DELETE)
@@ -111,9 +136,19 @@ public class CalendarioFinanceiroController {
 		return "redirect:/calendario";
 	}
 	
+	@RequestMapping(value = "/{codigo}/receber", method = RequestMethod.PUT)
+	public @ResponseBody String receber(@PathVariable Long codigo){
+		return calendarioFinanceiroService.receber(codigo);
+	}
+	
 	@ModelAttribute("anoEnum")
 	public List<ParametroEnum> anoEnum(){
 		return Arrays.asList(ParametroEnum.values());
+	}
+	
+	@ModelAttribute("status")
+	public List<Status> statusTitulo(){
+		return Arrays.asList(Status.values());
 	}
 
 }

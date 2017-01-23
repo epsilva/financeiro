@@ -11,16 +11,21 @@
 			<table class="table table-hover table-bordered table-striped table-condensed" id="tabelaDetalhe" cellspacing="0" width="100%">
 				<thead>
 					<tr>
-						<th class="text-center ">Data</th>
-						<th class="text-center col-md-2">Descrição</th>
+						<th class="text-center col-md-2">Data</th>
+						<th class="text-center col-md-4">Descrição</th>
 						<th class="text-center col-md-2">Valor R$</th>
+						<th class="text-center col-md-2">Status</th>
+						<th class="text-center col-md-2">Ação</th>
 					</tr>
 				</thead>
 					<tbody>
 						<tr th:each="calendario : ${listaCalendario}">
 							<td class="text-center" th:text="${{calendario.data}}"></td>
 							<td class="text-center" th:text="${calendario.descricao}"></td>
-							<td class="text-center" th:text="${{calendario.valor}}"></td>
+							<td class="text-center" th:text="|R$ ${{calendario.valor}}|"></td>
+							<td class="text-center" th:attr="data-role=${calendario.codigo}">
+								<span class="label" th:text="${calendario.status.descricao}" th:classappend="${calendario.pendente ? 'label-danger' : (calendario.cancelado ? 'label-primary' : 'label-success')}"></span>
+							</td>
 							<td class="text-center">
 								<a class="btn btn-link btn-xs" data-toggle="modal" th:onclick="|retrieveGuests('${calendario.codigo}')|" data-target="#cadastroCalendario" title="Editar" rel="tooltip" data-placement="top">
 									<span class="glyphicon glyphicon-pencil"></span>

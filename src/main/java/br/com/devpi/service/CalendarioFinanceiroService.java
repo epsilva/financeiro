@@ -16,4 +16,6 @@ public interface CalendarioFinanceiroService {
 	
 	void delete(Long codigo);
 	
+	String receber(Long codigo);
+	
 }

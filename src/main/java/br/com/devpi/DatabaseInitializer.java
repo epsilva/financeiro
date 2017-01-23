@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.devpi.model.Calendario;
+import br.com.devpi.model.Status;
 import br.com.devpi.service.CalendarioFinanceiroService;
 
 @Component
@@ -29,12 +30,14 @@ public class DatabaseInitializer {
 		janeiro.setDescricao("Janeiro");
 		janeiro.setValor(new BigDecimal("100"));
 		janeiro.setAno("2017");
+		janeiro.setStatus(Status.PENDENTE);
 		
 		Calendario janeiro2 = new Calendario();
 		janeiro2.setData(new Date());
 		janeiro2.setDescricao("Janeiro");
 		janeiro2.setValor(new BigDecimal("100"));
 		janeiro2.setAno("2017");
+		janeiro2.setStatus(Status.PENDENTE);
 		
 		Calendario fevereiro = new Calendario();
 		Calendar c = Calendar.getInstance();
@@ -43,6 +46,7 @@ public class DatabaseInitializer {
 		fevereiro.setDescricao("Fevereiro");
 		fevereiro.setValor(new BigDecimal("100"));
 		fevereiro.setAno("2017");
+		fevereiro.setStatus(Status.PENDENTE);
 		
 		Calendario marco = new Calendario();
 		Calendar cm = Calendar.getInstance();
@@ -51,6 +55,7 @@ public class DatabaseInitializer {
 		marco.setDescricao("Fevereiro");
 		marco.setValor(new BigDecimal("100"));
 		marco.setAno("2018");
+		marco.setStatus(Status.PENDENTE);
 		
 		
 		personService.save(janeiro);

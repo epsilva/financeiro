@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.devpi.model.Calendario;
+import br.com.devpi.model.Status;
 import br.com.devpi.repository.CalendarioFinanceiroRepository;
 import br.com.devpi.service.CalendarioFinanceiroService;
 
@@ -48,6 +49,14 @@ public class CalendarioFinanceiroServiceImpl implements CalendarioFinanceiroServ
 	@Override
 	public List<Calendario> findByAnoMes(String ano, String mes) {
 		return calendarioFinanceriroRepository.findByAnoAndMesContaining(ano, mes);
+	}
+
+	@Override
+	public String receber(Long codigo) {
+		Calendario calendario = calendarioFinanceriroRepository.findOne(codigo);
+		calendario.setStatus(Status.PAGO);
+		calendarioFinanceriroRepository.save(calendario);
+		return Status.PAGO.getDescricao();
 	}
 	
 	

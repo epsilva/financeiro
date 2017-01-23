@@ -23,6 +23,8 @@
 		</div>
 		
 		<form method="GET" class="form-horizontal" th:attr="data-url-base='/calendario'" th:action="@{/calendario}" >
+			<div layout:include="MensagemGeral"></div>
+			<div layout:include="MensagemErro"></div>
 			<!-- PRIMEIRA LINHA -->
 			<div id="box" class="panel-body">
 				<!-- MES DE JANEIRO -->
@@ -31,7 +33,11 @@
 						<h4 class="text-center" style="color: black">Janeiro</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Janeiro != null ? Janeiro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="|R$ ${{Janeiro != null ? Janeiro.valorTotalMes : 0}}|"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Janeiro != null ? Janeiro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Janeiro != null ? Janeiro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Janeiro == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Janeiro != null}"
@@ -46,7 +52,11 @@
 						<h4 class="text-center" style="color: black">Fevereiro</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Fevereiro != null ? Fevereiro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="|R$ ${{Fevereiro != null ? Fevereiro.valorTotalMes : 0}}|"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Fevereiro != null ? Fevereiro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Fevereiro != null ? Fevereiro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Fevereiro == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Fevereiro != null}"
@@ -61,7 +71,11 @@
 						<h4 class="text-center" style="color: black">Março</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Marco != null ? Marco.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Marco != null ? Marco.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Marco != null ? Janeiro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Marco != null ? Janeiro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Marco == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Marco != null}"
@@ -76,7 +90,11 @@
 						<h4 class="text-center" style="color: black">Abril</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Abril != null ? Abril.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Abril != null ? Abril.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Abril != null ? Abril.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Abril != null ? Abril.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Abril == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Abril != null}"
@@ -96,7 +114,11 @@
 						<h4 class="text-center" style="color: black">Maio</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Maio != null ? Maio.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Maio != null ? Maio.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Maio != null ? Maio.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Maio != null ? Maio.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Maio == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Maio != null}"
@@ -111,7 +133,11 @@
 						<h4 class="text-center" style="color: black">Junho</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Junho != null ? Junho.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Junho != null ? Junho.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Junho != null ? Junho.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Junho != null ? Junho.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Junho == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Junho != null}"
@@ -126,7 +152,11 @@
 						<h4 class="text-center" style="color: black">Julho</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Julho != null ? Julho.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Julho != null ? Julho.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Julho != null ? Julho.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Julho != null ? Julho.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Junho == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Julho != null}"
@@ -141,7 +171,11 @@
 						<h4 class="text-center" style="color: black">Agosto</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Agosto != null ? Agosto.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Agosto != null ? Agosto.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Agosto != null ? Agosto.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Agosto != null ? Agosto.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Agosto == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Agosto != null}"
@@ -159,7 +193,11 @@
 						<h4 class="text-center" style="color: black">Setembro</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Setembro != null ? Setembro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Setembro != null ? Setembro.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Setembro != null ? Setembro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Setembro != null ? Setembro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Setembro == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Setembro != null}"
@@ -174,7 +212,11 @@
 						<h4 class="text-center" style="color: black">Outubro</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Outubro != null ? Outubro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Outubro != null ? Outubro.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Julho != null ? Outubro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Julho != null ? Outubro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Outubro == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Junho != null}"
@@ -189,7 +231,11 @@
 						<h4 class="text-center" style="color: black">Novembro</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Novembro != null ? Novembro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Novembro != null ? Novembro.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Novembro != null ? Novembro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Novembro != null ? Novembro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Novembro == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Julho != null}"
@@ -204,7 +250,11 @@
 						<h4 class="text-center" style="color: black">Dezembro</h4>
 					</div>
 					<div id="div-name-row" class="row">
-						<h2 class="text-center"	th:text="${Dezembro != null ? Dezembro.valorTotalMes : 0}" style="padding-bottom: 10px"></h2>
+						<h2 class="text-center"	th:text="${{Dezembro != null ? Dezembro.valorTotalMes : 0}}"></h2>
+						<div class="col-md-12">
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Dezembro != null ? Dezembro.valorTotalPago : 0}}|" style="color: blue" rel="tooltip" data-placement="top" title="Valor Pago"></h5>
+							<h5 class="col-md-6 text-center" th:text="|R$ ${{Dezembro != null ? Dezembro.valorTotalPendente : 0}}|" style="color: red" rel="tooltip" data-placement="top" title="Valor Pendente"></h5>
+						</div>
 					</div>
 						<span class="glyphicon glyphicon-th-list" th:if="${Dezembro == null}">Detalhar</span>
 					<a class="btn btn-link btn-xs" title="Detalhes Calendario" rel="tooltip" th:if="${Dezembro != null}"
