@@ -5,7 +5,7 @@
 
 	<groupId>br.com.devpi</groupId>
 	<artifactId>financeiro</artifactId>
-	<version>1.3.2.0-SNAPSHOT</version>
+	<version>1.4.0.0-SNAPSHOT</version>
 
 	<name>financeiro</name>
 	<description>Projeto de controle financeiro</description>
@@ -42,11 +42,11 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.h2database</groupId> -->
+<!-- 			<artifactId>h2</artifactId> -->
+<!-- 			<scope>runtime</scope> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -63,11 +63,11 @@
 		<!-- <artifactId>spring-boot-starter-test</artifactId> -->
 		<!-- <scope>test</scope> -->
 		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>mysql</groupId> -->
-		<!-- <artifactId>mysql-connector-java</artifactId> -->
-		<!-- <scope>compile</scope> -->
-		<!-- </dependency> -->
+		<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

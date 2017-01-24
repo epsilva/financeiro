@@ -18,16 +18,18 @@
 			<div class="panel-body">
 				<div class="col-md-6">
 					<form class="form-horizontal" method="POST"	th:action="@{/desafio}"	th:object="${desafioSemana}">
+						<div layout:include="MensagemGeral"></div>
+						<div layout:include="MensagemErro"></div>
 						<div class="panel-body">
 							<input type="hidden" th:field="*{codigo}" />
-							<div class="form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('dataDeposito')} ? 'has-error'">
 								<div>
 									<input type="text" class="form-control text-center"	id="dataDeposito" placeholder="Data do Deposito" th:field="*{dataDeposito}" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
 										data-date-autoclose="true" data-date-today-highlight="true" />
 								</div>
 							</div>
 							<p></p>
-							<div class="form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('valorDepositado')} ? 'has-error'">
 								<div>
 									<input type="text" class="form-control js-currency text-center" id="valorDepositado" placeholder="Valor depositado" th:field="*{{valorDepositado}}" />
 								</div>

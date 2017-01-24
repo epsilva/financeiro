@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+	<div th:fragment="listaCalendarioReceber">
+		<div class="modal-header">
+			<h4 class="modal-title" th:text="${mes}">Detalhe Calendario</h4>
+		</div>
+		<div class="panel-body" style="height: 100%">
+			<table class="table table-hover table-bordered table-striped table-condensed" id="tabelaDetalhe" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th class="text-center col-md-2">Data</th>
+						<th class="text-center col-md-4">Descrição</th>
+						<th class="text-center col-md-2">Valor R$</th>
+						<th class="text-center col-md-2">Status</th>
+						<th class="text-center col-md-2">Ação</th>
+					</tr>
+				</thead>
+					<tbody>
+						<tr th:each="calendario : ${listaCalendario}">
+							<td class="text-center" th:text="${{calendario.data}}"></td>
+							<td class="text-center" th:text="${calendario.descricao}"></td>
+							<td class="text-center" th:text="|R$ ${{calendario.valor}}|"></td>
+							<td class="text-center" th:attr="data-role=${calendario.codigo}">
+								<span class="label" th:text="${calendario.status.descricao}" th:classappend="${calendario.pendente ? 'label-danger' : (calendario.cancelado ? 'label-primary' : 'label-success')}"></span>
+							</td>
+							<td class="text-center">
+								<a class="btn btn-link btn-xs" data-toggle="modal" th:onclick="|retrieveGuestsReceber('${calendario.codigo}')|" data-target="#cadastroCalendarioReceber" title="Editar" rel="tooltip" data-placement="top">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a>
+								<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalCalendarioReceber" th:attr="data-codigo=${calendario.codigo}, data-descricao=${calendario.descricao}" title="Excluir" rel="tooltip" data-placement="top">
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+							</td>
+						</tr>
+				</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+			</div>
+	</div>
+</html>

@@ -63,6 +63,12 @@ $('#cadastroCalendario').on(
 			$('.js-currency').maskMoney({decimal: ',', thousands: '.', allowZero: true});
 });
 
+$('#cadastroCalendarioReceber').on(
+		'show.bs.modal',
+		function(event) {
+			$('.js-currency').maskMoney({decimal: ',', thousands: '.', allowZero: true});
+});
+
 
 $('#confirmacaoExclusaoModalDesafioSemana').on(
 		'show.bs.modal',
@@ -110,6 +116,29 @@ $('#confirmacaoExclusaoModalCalendario').on(
 			console.log("Action: " + action + "  " + codigo);
 });
 
+$('#confirmacaoExclusaoModalCalendarioReceber').on(
+		'show.bs.modal',
+		function(event) {
+			var button = $(event.relatedTarget);
+
+			var codigo = button.data('codigo');
+			var descricao = button.data('descricao');
+
+			var modal = $(this);
+			var form = modal.find('form');
+			var action = form.data('url-base');
+			if (!action.endsWith('/')) {
+				action += '/';
+			}
+
+			form.attr('action', action + codigo);
+
+			modal.find('.modal-body span').html(
+					'Tem certeza que deseja excluir a conta <strong>'
+							+ descricao + '</strong>?');
+			console.log("Action: " + action + "  " + codigo);
+});
+
 
 function retrieveGuests(codigo) {
 	var url = '/calendario/novo';
@@ -119,10 +148,24 @@ function retrieveGuests(codigo) {
 	$("#resultsBlock").load(url);
 }
 
+function retrieveGuestsReceber(codigo) {
+	var url = '/calendario/receber/novo';
+	if(codigo){
+		url = url + '/' + codigo;
+	}
+	$("#resultsBlockReceber").load(url);
+}
+
 function detalheLista(ano, mes) {
 	var url = '/calendario/detalhe';
 		url = url + '/' + ano + '/' + mes;
 	$("#resultsBlockListas").load(url);
+}
+
+function detalheListaReceber(ano, mes) {
+	var url = '/calendario/receber/detalhe';
+		url = url + '/' + ano + '/' + mes;
+	$("#resultsBlockListasReceber").load(url);
 }
 
 function validarCampos(frm) {

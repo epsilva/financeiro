@@ -1,3 +1,4 @@
+
 package br.com.devpi;
 
 import java.math.BigDecimal;
@@ -58,10 +59,10 @@ public class DatabaseInitializer {
 		marco.setStatus(Status.PENDENTE);
 		
 		
-		personService.save(janeiro);
-		personService.save(janeiro2);
-		personService.save(fevereiro);
-		personService.save(marco);
+//		personService.save(janeiro);
+//		personService.save(janeiro2);
+//		personService.save(fevereiro);
+//		personService.save(marco);
 	}
 
 }

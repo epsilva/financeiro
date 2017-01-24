@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	>
+
+<head></head>
+<body>
+	<div th:fragment="cadastroCalendarioReceber">
+	<div class="panel-body" style="height: 100%">
+		<form id="formCadastroCalendarioReceber" class="form-horizontal" onsubmit="validarCampos(this); return false;" method="POST"	th:action="@{/calendario/receber}"	th:object="${calendarioReceber}">
+			<div layout:include="MensagemGeral"></div>
+			<div layout:include="MensagemErro"></div>
+			<div class="insertBlock">
+				<div class="modal-header">
+					<h4 class="modal-title">Cadastro Calendario</h4>
+				</div>
+				<div class="modal-body">
+				<input type="hidden" id="codigo" th:field="*{codigo}" />
+					<div class="form-group" th:classappend="${#fields.hasErrors('data')} ? 'has-error'">
+						<div>
+							<input type="text" class="form-control text-center"	id="data" placeholder="Data" th:field="*{data}" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+								data-date-autoclose="true" data-date-today-highlight="true" />
+						</div>
+					</div>
+					<p></p>
+					<div class="form-group">
+						<div>
+							<input type="text" class="form-control text-center" id="descricao" placeholder="Descrição" th:field="*{descricao}" />
+						</div>
+					</div>
+					<p></p>
+					<div class="form-group">
+						<div>
+							<input type="text" class="form-control js-currency text-center" id="valor" placeholder="Valor" th:field="*{{valor}}" />
+						</div>
+					</div>
+					<p></p>
+					<div class="form-group">
+						<div>
+							<select class="form-control" name="status" th:field="*{status}">
+								<option th:each="status : ${status}" th:value="${status}"
+									th:text="${status.descricao}"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Salvar</button>
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+		</form>
+		</div>
+	</div>
+</body>
+</html>

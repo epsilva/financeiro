@@ -11,6 +11,8 @@
 	<div class="panel-body">
 		<div class="col-md-6">
 			<form class="form-horizontal" method="POST" th:action="@{/moedas}" th:object="${moeda}">
+				<div layout:include="MensagemGeral"></div>
+				<div layout:include="MensagemErro"></div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="clearfix">
@@ -21,7 +23,7 @@
 		
 					<div class="panel-body">
 						<input type="hidden" th:field="*{codigo}" />
-						<div class="form-group">
+						<div class="form-group" th:classappend="${#fields.hasErrors('dataDeposito')} ? 'has-error'">
 							<div class="col-sm-12">
 								<input type="text" class="form-control text-center" id="dataDeposito" placeholder="Data do Depósito" th:field="*{dataDeposito}"
 								data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" data-date-autoclose="true" data-date-today-highlight="true"/>

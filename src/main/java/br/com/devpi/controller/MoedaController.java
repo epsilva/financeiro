@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.devpi.model.Moeda;
 import br.com.devpi.model.Pager;
@@ -23,6 +26,10 @@ public class MoedaController {
 	private static final int BUTTONS_TO_SHOW = 5;
 	private static final int INITIAL_PAGE = 0;
 	private static final int INITIAL_PAGE_SIZE = 10;
+	
+	private static String ATRIBUTO_MENSAGEM = "mensagem";
+	private static String MSG_SALVO_CONSUCESSO = "Moedas cadastradas com sucesso!!";
+	private static String MSG_EXCLUSAO_CONSUCESSO = "Moedas removidas com sucesso!";
 
 	@Autowired
 	private MoedasService moedasService;
@@ -81,9 +88,18 @@ public class MoedaController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(Moeda moeda){
-		moedasService.save(Arrays.asList(moeda));
-		return "redirect:/moedas/cadastro";
+	public String salvar(@Validated Moeda moeda, Errors erros, RedirectAttributes attributes){
+//		if(erros.hasErrors()){
+//			return "Moedas";
+//		}
+//		try{
+			moedasService.save(Arrays.asList(moeda));
+			attributes.addFlashAttribute(ATRIBUTO_MENSAGEM, MSG_SALVO_CONSUCESSO);
+			return "redirect:/moedas/cadastro";
+//		}catch (Exception e) {
+//			erros.reject("dataDeposito", null, e.getMessage());
+//			return "Moedas";
+//		}
 	}
 	
 	/**
@@ -105,8 +121,9 @@ public class MoedaController {
 	 * @return
 	 */
 	@RequestMapping(value="{codigo}", method = RequestMethod.DELETE)
-	public String excluir(@PathVariable Long codigo){
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes){
 		moedasService.delete(codigo);
+		attributes.addFlashAttribute(ATRIBUTO_MENSAGEM, MSG_EXCLUSAO_CONSUCESSO);
 		return "redirect:/moedas";
 	}
 }
